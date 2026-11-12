@@ -521,7 +521,7 @@
             <div class="custom-select-options">
               <div class="custom-option" onclick="selectActivity('Cricket', 'Cricket Match Derby (8 Overs · Morning vs. Evening)')">Cricket Match Derby (8 Overs · Morning vs. Evening)</div>
               <div class="custom-option" onclick="selectActivity('Badminton', 'Girls Badminton Championship (8 Doubles Pairs Knockout)')">Girls Badminton Championship (8 Doubles Pairs Knockout)</div>
-              <div class="custom-option" onclick="selectActivity('Stall', 'Business &amp; Creative Stall (Food / Drinks / Art &amp; Crafts)')">Business &amp; Creative Stall (Food / Drinks / Art &amp; Crafts)</div>
+              <div class="custom-option" onclick="selectActivity('Food Cart', 'Food Cart (Food / Drinks / Art &amp; Crafts)')">Food Cart (Food / Drinks / Art &amp; Crafts)</div>
               <div class="custom-option" onclick="selectActivity('Campaign Design', 'Campaign Design Contest (5th &amp; 7th Semesters)')">Campaign Design Contest (5th &amp; 7th Semesters)</div>
               <div class="custom-option" onclick="selectActivity('Jersey Design', 'Cricket Jersey Design Contest (Apparel Design)')">Cricket Jersey Design Contest (Apparel Design)</div>
               <div class="custom-option" onclick="selectActivity('Media', 'Media Coverage Crew (Photography / Videography)')">Media Coverage Crew (Photography / Videography)</div>
@@ -557,14 +557,14 @@
           </div>
         </div>
 
-        <!-- Dynamic Subform: Stall -->
+        <!-- Dynamic Subform: Food Cart / Stall -->
         <div id="subStall" class="subform-box" style="background:var(--d);">
-          <div class="subform-title">Stall Category &amp; Setup Details</div>
-          <div class="subform-sub">Specify your product category and brand concept:</div>
+          <div class="subform-title">Food Cart &amp; Category Details</div>
+          <div class="subform-sub">Select your product category and setup type (Single or Double):</div>
 
           <div class="form-grid">
             <div class="form-group">
-              <label class="form-label">Stall Product Category *</label>
+              <label class="form-label">Product Category *</label>
               <div class="custom-select-wrapper" id="stallCatWrapper">
                 <input type="hidden" id="stallCatVal" value="Food Stall">
                 <div class="custom-select-trigger" onclick="toggleDropdown('stallCatWrapper')">
@@ -582,13 +582,23 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="stallName">Stall / Venture Brand Name</label>
-              <input type="text" id="stallName" class="form-input" placeholder="e.g. Sips &amp; Sweets / Art Corner">
+              <label class="form-label">Setup Type (Single or Double) *</label>
+              <div class="custom-select-wrapper" id="stallTypeWrapper">
+                <input type="hidden" id="stallTypeVal" value="Single (1 Student)">
+                <div class="custom-select-trigger" onclick="toggleDropdown('stallTypeWrapper')">
+                  <span class="trigger-label" id="stallTypeLabel">Single (1 Student)</span>
+                  <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="custom-select-options">
+                  <div class="custom-option selected" onclick="selectStallType('Single (1 Student)')">Single (1 Student)</div>
+                  <div class="custom-option" onclick="selectStallType('Double (2 Students)')">Double (2 Students)</div>
+                </div>
+              </div>
             </div>
 
-            <div class="form-group">
-              <label class="form-label" for="stallPartner">Partner Name &amp; Semester (if Duo)</label>
-              <input type="text" id="stallPartner" class="form-input" placeholder="Leave empty if Solo">
+            <div class="form-group" id="partnerGroup" style="display:none;">
+              <label class="form-label" for="stallPartner">Partner Name &amp; Semester</label>
+              <input type="text" id="stallPartner" class="form-input" placeholder="e.g. Partner Name (3rd Semester Morning)">
             </div>
           </div>
         </div>
@@ -687,8 +697,16 @@
       const subMedia = document.getElementById('subMedia');
 
       if (subCricket) subCricket.classList.toggle('active', act === 'Cricket');
-      if (subStall) subStall.classList.toggle('active', act === 'Stall');
+      if (subStall) subStall.classList.toggle('active', act === 'Food Cart' || act === 'Stall');
       if (subMedia) subMedia.classList.toggle('active', act === 'Media');
+    }
+
+    function selectStallType(type) {
+      selectOption('stallTypeWrapper', type, type);
+      const partnerGroup = document.getElementById('partnerGroup');
+      if (partnerGroup) {
+        partnerGroup.style.display = type.includes('Double') ? 'block' : 'none';
+      }
     }
 
     // Close on click outside
@@ -712,6 +730,10 @@
       document.getElementById('studentActivity').value = '';
       document.getElementById('actLabel').textContent = '-- Choose an Activity --';
       document.querySelectorAll('.subform-box').forEach(s => s.classList.remove('active'));
+      const partnerGroup = document.getElementById('partnerGroup');
+      if (partnerGroup) partnerGroup.style.display = 'none';
+      if (document.getElementById('stallTypeVal')) document.getElementById('stallTypeVal').value = 'Single (1 Student)';
+      if (document.getElementById('stallTypeLabel')) document.getElementById('stallTypeLabel').textContent = 'Single (1 Student)';
     }
 
     function submitForm(e) {
@@ -731,11 +753,11 @@
       if (activity === 'Cricket') {
         const role = document.getElementById('cricketRoleVal').value;
         details = role;
-      } else if (activity === 'Stall') {
+      } else if (activity === 'Food Cart' || activity === 'Stall') {
         const cat = document.getElementById('stallCatVal').value;
-        const brand = document.getElementById('stallName').value.trim() || 'Custom Stall';
-        const partner = document.getElementById('stallPartner').value.trim();
-        details = `${cat} · "${brand}"${partner ? ' [Duo Partner: ' + partner + ']' : ' (Solo)'}`;
+        const type = document.getElementById('stallTypeVal').value;
+        const partner = document.getElementById('stallPartner') ? document.getElementById('stallPartner').value.trim() : '';
+        details = `${cat} · ${type}${partner ? ' [Partner: ' + partner + ']' : ''}`;
       } else if (activity === 'Media') {
         const mRole = document.getElementById('mediaRoleVal').value;
         const gear = document.getElementById('mediaGear').value.trim();
