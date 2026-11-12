@@ -32,7 +32,7 @@ module.exports = async function handler(req, res) {
         return res.status(400).json({ error: 'Missing id query parameter' });
       }
 
-      await collection.deleteOne({ id });
+      await collection.deleteOne({ $or: [{ id: id }, { roll: id }] });
       return res.status(200).json({ success: true, message: 'Record deleted' });
     }
 
@@ -50,3 +50,4 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: error.message || 'Database error' });
   }
 };
+
