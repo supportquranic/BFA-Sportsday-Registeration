@@ -663,6 +663,50 @@
 
   <script>
     const STORAGE_KEY = 'sports_fest_2026_registrations_v1';
+    const CLOUD_URL = 'https://api.restful-api.dev/objects/ff808181a09d98f701a1d084fa35185c';
+
+    // Cloud synchronization bridge (Cross-device sync without database setup)
+    async function syncToCloud(record) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 6000);
+        
+        const getRes = await fetch(CLOUD_URL, { 
+          cache: 'no-store',
+          signal: controller.signal 
+        });
+        clearTimeout(timeoutId);
+
+        let list = [];
+        if (getRes.ok) {
+          const json = await getRes.json();
+          list = (json.data && Array.isArray(json.data.registrations)) ? json.data.registrations : [];
+        }
+
+        // Deduplicate: check if record with same id or roll + activity already exists
+        const exists = list.some(r => r.id === record.id || (r.roll === record.roll && r.activity === record.activity));
+        if (!exists) {
+          list.unshift(record);
+        }
+
+        const putController = new AbortController();
+        const putTimeoutId = setTimeout(() => putController.abort(), 6000);
+        await fetch(CLOUD_URL, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: 'BFA_SPORTS_FEST_2026_MASTER',
+            data: { registrations: list }
+          }),
+          signal: putController.signal
+        });
+        clearTimeout(putTimeoutId);
+        return true;
+      } catch(err) {
+        console.warn('Cloud sync background info:', err);
+        return false;
+      }
+    }
 
     // Dropdown Handling
     function toggleDropdown(wrapperId) {
@@ -736,7 +780,7 @@
       if (document.getElementById('stallTypeLabel')) document.getElementById('stallTypeLabel').textContent = 'Single (1 Student)';
     }
 
-    function submitForm(e) {
+    async function submitForm(e) {
       e.preventDefault();
       const name = document.getElementById('studentName').value.trim();
       const roll = document.getElementById('studentRoll').value.trim();
@@ -789,6 +833,7 @@
         time: now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
       };
 
+      // 1. Immediately store in local device storage
       try {
         const list = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         list.unshift(record);
@@ -797,8 +842,25 @@
         console.error(err);
       }
 
-      showToast(`Registration for ${name} submitted successfully!`);
-      resetForm();
+      // UI submission state
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const origHtml = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `Submitting & Syncing...`;
+      }
+
+      // 2. Cloud sync so it appears in Admin across any computer/phone
+      try {
+        await syncToCloud(record);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = origHtml;
+        }
+        showToast(`Registration for ${name} submitted successfully!`);
+        resetForm();
+      }
     }
   </script>
 </body>

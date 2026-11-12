@@ -377,8 +377,10 @@
     <a href="admin.html" class="brand">
       Design &amp; Sports Fest 2026 <span>Admin Dashboard</span>
     </a>
-    <div class="top-links">
-      <a href="register.html" class="top-btn">Student Portal (Register)</a>
+    <div class="top-links" style="align-items:center;">
+      <span id="topCloudStatus" style="display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; padding:5px 12px; border-radius:999px; background:#e6f4ea; color:#137333;">🟢 Cloud Live</span>
+      <button type="button" class="top-btn" onclick="fetchCloudData(true)" style="cursor:pointer;">🔄 Sync Now</button>
+      <a href="register.html" class="top-btn">Student Portal</a>
       <a href="plan.html" class="top-btn">Full Event Plan</a>
       <button type="button" class="top-btn dark" onclick="lockAdmin()" style="cursor: pointer; border: none; font-weight:600;">🔒 Lock</button>
     </div>
@@ -502,8 +504,9 @@
         </select>
       </div>
 
-      <div style="display:flex; gap:8px;">
-        <button type="button" class="btn-act" onclick="exportToCSV()">Export to Excel (CSV)</button>
+      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <button type="button" class="btn-act" onclick="fetchCloudData(true)">🔄 Sync Cloud</button>
+        <button type="button" class="btn-act btn-act-light" onclick="exportToCSV()">Export to Excel (CSV)</button>
         <button type="button" class="btn-act btn-act-light" onclick="exportJSONBackup()">Backup JSON</button>
         <button type="button" class="btn-act btn-act-danger" onclick="clearAllData()">Clear All Records</button>
       </div>
@@ -554,6 +557,112 @@
   <script>
     const STORAGE_KEY = 'sports_fest_2026_registrations_v1';
     const ADMIN_PASS = '3344';
+    const CLOUD_URL = 'https://api.restful-api.dev/objects/ff808181a09d98f701a1d084fa35185c';
+    let autoSyncTimer = null;
+
+    function setCloudStatus(status, text) {
+      const el = document.getElementById('topCloudStatus');
+      if (!el) return;
+      if (status === 'syncing') {
+        el.style.background = '#fff8e1';
+        el.style.color = '#b06000';
+        el.textContent = '🟡 Syncing Cloud...';
+      } else if (status === 'error') {
+        el.style.background = '#fce8e6';
+        el.style.color = '#c5221f';
+        el.textContent = '⚠️ Offline Cache';
+      } else {
+        el.style.background = '#e6f4ea';
+        el.style.color = '#137333';
+        el.textContent = text || '🟢 Cloud Live';
+      }
+    }
+
+    async function fetchCloudData(showFeedback = false) {
+      setCloudStatus('syncing');
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 7000);
+        const res = await fetch(CLOUD_URL, { 
+          cache: 'no-store',
+          signal: controller.signal 
+        });
+        clearTimeout(timeoutId);
+
+        if (!res.ok) throw new Error('Cloud responded with status ' + res.status);
+        const json = await res.json();
+        const cloudList = (json.data && Array.isArray(json.data.registrations)) ? json.data.registrations : [];
+
+        // Clean out any legacy demo records
+        const cleanCloud = cloudList.filter(item => 
+          !String(item.id || '').startsWith('REG-1010') && 
+          !String(item.id || '').startsWith('REG-1011')
+        );
+
+        // Get local records
+        const localList = getRegistrations();
+        
+        // Merge cloud records with local records
+        const mergedMap = new Map();
+        
+        // Add cloud first
+        cleanCloud.forEach(r => {
+          const key = r.id || (r.roll + '-' + r.activity);
+          mergedMap.set(key, r);
+        });
+
+        // Add any unsynced local records
+        let hasNewLocal = false;
+        localList.forEach(r => {
+          const key = r.id || (r.roll + '-' + r.activity);
+          if (!mergedMap.has(key)) {
+            mergedMap.set(key, r);
+            hasNewLocal = true;
+          }
+        });
+
+        const finalList = Array.from(mergedMap.values());
+        saveRegistrations(finalList);
+
+        // If local had records not yet in cloud, push merged back to cloud
+        if (hasNewLocal || cleanCloud.length !== cloudList.length) {
+          pushToCloud(finalList);
+        }
+
+        renderTable();
+        const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        setCloudStatus('ok', `🟢 Cloud Live (${finalList.length} items · ${timeStr})`);
+        
+        if (showFeedback) {
+          showToast(`Cloud sync complete! ${finalList.length} registrations loaded.`);
+        }
+      } catch(err) {
+        console.warn('Cloud sync error:', err);
+        setCloudStatus('error');
+        if (showFeedback) {
+          showToast('Could not reach cloud. Showing saved local registrations.');
+        }
+      }
+    }
+
+    async function pushToCloud(list) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 7000);
+        await fetch(CLOUD_URL, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: 'BFA_SPORTS_FEST_2026_MASTER',
+            data: { registrations: list }
+          }),
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+      } catch(err) {
+        console.warn('Failed to push to cloud:', err);
+      }
+    }
 
     function checkAuth() {
       const isAuthed = sessionStorage.getItem('sports_admin_authed') === 'true';
@@ -566,10 +675,24 @@
         if (content) content.style.display = 'block';
         if (topBar) topBar.style.display = 'flex';
         renderTable();
+        fetchCloudData(false);
+
+        // Auto poll every 15 seconds
+        if (!autoSyncTimer) {
+          autoSyncTimer = setInterval(() => {
+            if (sessionStorage.getItem('sports_admin_authed') === 'true') {
+              fetchCloudData(false);
+            }
+          }, 15000);
+        }
       } else {
         if (gate) gate.style.display = 'flex';
         if (content) content.style.display = 'none';
         if (topBar) topBar.style.display = 'none';
+        if (autoSyncTimer) {
+          clearInterval(autoSyncTimer);
+          autoSyncTimer = null;
+        }
         const pinInput = document.getElementById('adminPinInput');
         if (pinInput) {
           pinInput.value = '';
@@ -741,13 +864,15 @@
       let list = getRegistrations();
       list = list.filter(x => x.id !== id);
       saveRegistrations(list);
+      pushToCloud(list);
       renderTable();
-      showToast('Registration removed.');
+      showToast('Registration removed from local storage and cloud.');
     }
 
     function clearAllData() {
-      if (!confirm('CAUTION: This will delete ALL registrations permanently from this browser. Continue?')) return;
+      if (!confirm('CAUTION: This will delete ALL registrations permanently from both this browser AND the cloud. Continue?')) return;
       saveRegistrations([]);
+      pushToCloud([]);
       renderTable();
       showToast('All registration data cleared.');
     }
