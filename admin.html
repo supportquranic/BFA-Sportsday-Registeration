@@ -505,8 +505,7 @@
       <div style="display:flex; gap:8px;">
         <button type="button" class="btn-act" onclick="exportToCSV()">Export to Excel (CSV)</button>
         <button type="button" class="btn-act btn-act-light" onclick="exportJSONBackup()">Backup JSON</button>
-        <button type="button" class="btn-act btn-act-light" onclick="loadSampleData()">Load Demo Data</button>
-        <button type="button" class="btn-act btn-act-danger" onclick="clearAllData()">Clear All</button>
+        <button type="button" class="btn-act btn-act-danger" onclick="clearAllData()">Clear All Records</button>
       </div>
     </div>
 
@@ -607,7 +606,13 @@
     function getRegistrations() {
       try {
         const data = localStorage.getItem(STORAGE_KEY);
-        return data ? JSON.parse(data) : [];
+        let list = data ? JSON.parse(data) : [];
+        // Auto-purge legacy demo records (REG-10101 to REG-10111)
+        const cleaned = list.filter(item => !String(item.id || '').startsWith('REG-1010') && !String(item.id || '').startsWith('REG-1011'));
+        if (cleaned.length !== list.length) {
+          saveRegistrations(cleaned);
+        }
+        return cleaned;
       } catch(err) {
         return [];
       }
@@ -703,7 +708,7 @@
 
       const tbody = document.getElementById('adminTableBody');
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 28px; color: var(--m);">No student registrations found matching your filters.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 36px 20px; color: var(--m); font-size: 14.5px;">No student registrations submitted yet.<br><span style="font-size:12.5px; color:#888;">Live entries from the registration form will appear here.</span></td></tr>`;
         return;
       }
 
@@ -792,26 +797,6 @@
       showToast('Backup JSON file downloaded.');
     }
 
-    function loadSampleData(force = true) {
-      if (!force && getRegistrations().length > 0) return;
-      const demoList = [
-        { id: 'REG-10101', name: 'Zain Ul Abideen', roll: 'BFA-2022-04', semester: '7th Semester Morning', shift: 'Morning', phone: '0301-5551234', activity: 'Cricket', details: 'Fast Bowler (Right-Hand Bat / Pace)', date: 'Nov 12', time: '10:15 AM' },
-        { id: 'REG-10102', name: 'Hamza Tariq', roll: 'BFA-2023-18', semester: '5th Semester Evening', shift: 'Evening', phone: '0321-4449876', activity: 'Cricket', details: 'Spinner (Right-Hand Bat / Spin)', date: 'Nov 12', time: '10:30 AM' },
-        { id: 'REG-10103', name: 'Ayesha Siddiqua', roll: 'BFA-2024-11', semester: '3rd Semester Morning', shift: 'Morning', phone: '0333-8882233', activity: 'Badminton', details: 'Doubles Player Nomination', date: 'Nov 12', time: '11:00 AM' },
-        { id: 'REG-10104', name: 'Fatima Noor', roll: 'BFA-2024-22', semester: '3rd Semester Evening', shift: 'Evening', phone: '0345-7773344', activity: 'Badminton', details: 'Doubles Player Nomination', date: 'Nov 12', time: '11:15 AM' },
-        { id: 'REG-10105', name: 'Bilal Hassan', roll: 'BFA-2022-29', semester: '7th Semester Evening', shift: 'Evening', phone: '0312-9994455', activity: 'Cricket', details: 'Batsman (Top / Middle order)', date: 'Nov 12', time: '11:45 AM' },
-        { id: 'REG-10106', name: 'Mahnoor & Bisma', roll: 'BFA-2023-35', semester: '5th Semester Morning', shift: 'Morning', phone: '0300-1116677', activity: 'Stall', details: 'Food Stall · "The Doughnut Club" · Duo (2 Students)', date: 'Nov 12', time: '12:10 PM' },
-        { id: 'REG-10107', name: 'Daniyal Rehman', roll: 'BFA-2025-07', semester: '1st Semester Evening', shift: 'Evening', phone: '0322-3337788', activity: 'Stall', details: 'Art & Crafts · "Petal & Thread" (Handmade Bouquet, Crochet Work) · Solo (1 Student)', date: 'Nov 12', time: '12:40 PM' },
-        { id: 'REG-10108', name: 'Usman Ghani', roll: 'BFA-2023-14', semester: '5th Semester Morning', shift: 'Morning', phone: '0344-6668899', activity: 'Media', details: 'Photography (Gear: Sony A7 IV)', date: 'Nov 12', time: '01:05 PM' },
-        { id: 'REG-10109', name: 'Rehan Qureshi', roll: 'BFA-2022-40', semester: '7th Semester Evening', shift: 'Evening', phone: '0315-4441122', activity: 'Media', details: 'Videography (Gear: Blackmagic 4K)', date: 'Nov 12', time: '01:25 PM' },
-        { id: 'REG-10110', name: 'Maryam Asif', roll: 'BFA-2023-09', semester: '5th Semester Evening', shift: 'Evening', phone: '0304-2223344', activity: 'Campaign Design', details: 'Software: Illustrator, Photoshop, Figma', date: 'Nov 12', time: '01:50 PM' },
-        { id: 'REG-10111', name: 'Sameer Abbasi', roll: 'BFA-2024-51', semester: '3rd Semester Morning', shift: 'Morning', phone: '0331-5558877', activity: 'Jersey Design', details: 'Software: Photoshop, Marvelous Designer', date: 'Nov 12', time: '02:15 PM' }
-      ];
-      saveRegistrations(demoList);
-      renderTable();
-      showToast('Loaded demo registrations into dashboard!');
-    }
-
     function escapeHtml(str) {
       if (!str) return '';
       return String(str)
@@ -830,9 +815,6 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       checkAuth();
-      if (getRegistrations().length === 0) {
-        loadSampleData(false);
-      }
     });
   </script>
 </body>
