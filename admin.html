@@ -786,6 +786,38 @@
         const json = await res.json();
         const dbList = Array.isArray(json.registrations) ? json.registrations : [];
 
+        // Auto-recover any registrations submitted on this device while sync was stopped
+        const localList = getRegistrations();
+        const missingFromDb = localList.filter(loc => {
+          if (!loc || !loc.name || !loc.roll) return false;
+          if (String(loc.id || '').startsWith('REG-1010') || String(loc.id || '').startsWith('REG-1011')) return false;
+          return !dbList.some(db => db.roll === loc.roll && db.activity === loc.activity);
+        });
+
+        if (missingFromDb.length > 0) {
+          try {
+            await fetch('/api/register', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(missingFromDb)
+            });
+            const refreshRes = await fetch('/api/records', { cache: 'no-store' });
+            if (refreshRes.ok) {
+              const refreshJson = await refreshRes.json();
+              if (Array.isArray(refreshJson.registrations)) {
+                saveRegistrations(refreshJson.registrations);
+                renderTable();
+                const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                setCloudStatus('ok', `🟢 MongoDB Connected (${refreshJson.registrations.length} items · ${timeStr})`);
+                showToast(`Auto-recovered & synced ${missingFromDb.length} offline registrations to MongoDB!`);
+                return;
+              }
+            }
+          } catch(e) {
+            console.warn('Failed to sync offline items to DB:', e);
+          }
+        }
+
         // Save to local cache
         saveRegistrations(dbList);
         renderTable();

@@ -14,24 +14,31 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const record = req.body;
-    if (!record || !record.name || !record.roll) {
+    const payload = req.body;
+    if (!payload) {
+      return res.status(400).json({ error: 'Missing request body' });
+    }
+
+    const items = Array.isArray(payload) ? payload : [payload];
+    if (items.length === 0 || !items[0].name || !items[0].roll) {
       return res.status(400).json({ error: 'Missing required registration fields' });
     }
 
     const { db } = await connectToDatabase();
     const collection = db.collection('registrations');
 
-    record.createdAt = new Date();
+    for (const record of items) {
+      if (record && record.name && record.roll) {
+        if (!record.createdAt) record.createdAt = new Date();
+        await collection.updateOne(
+          { roll: record.roll, activity: record.activity },
+          { $set: record },
+          { upsert: true }
+        );
+      }
+    }
 
-    // Upsert by roll + activity (prevent duplicate registration in same activity)
-    await collection.updateOne(
-      { roll: record.roll, activity: record.activity },
-      { $set: record },
-      { upsert: true }
-    );
-
-    return res.status(200).json({ success: true, message: 'Registration saved to MongoDB', record });
+    return res.status(200).json({ success: true, count: items.length, message: 'Registrations synced to MongoDB' });
   } catch (error) {
     console.error('MongoDB register error:', error);
     return res.status(500).json({ error: error.message || 'Database connection error' });

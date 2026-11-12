@@ -837,6 +837,23 @@
         resetForm();
       }
     }
+
+    // Auto-sync any registrations saved on this phone/device directly to MongoDB
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        const localData = localStorage.getItem(STORAGE_KEY);
+        if (!localData) return;
+        const list = JSON.parse(localData);
+        const valid = list.filter(r => r && r.name && r.roll && !String(r.id||'').startsWith('REG-101'));
+        if (valid.length > 0) {
+          fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(valid)
+          }).catch(err => console.warn('Sync warning:', err));
+        }
+      } catch(e) {}
+    });
   </script>
 </body>
 </html>
