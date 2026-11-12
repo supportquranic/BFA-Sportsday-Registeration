@@ -663,47 +663,22 @@
 
   <script>
     const STORAGE_KEY = 'sports_fest_2026_registrations_v1';
-    const CLOUD_URL = 'https://api.restful-api.dev/objects/ff808181a09d98f701a1d084fa35185c';
 
-    // Cloud synchronization bridge (Cross-device sync without database setup)
-    async function syncToCloud(record) {
+    // MongoDB Database synchronization
+    async function syncToDatabase(record) {
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 6000);
-        
-        const getRes = await fetch(CLOUD_URL, { 
-          cache: 'no-store',
-          signal: controller.signal 
+        const timeoutId = setTimeout(() => controller.abort(), 7000);
+        const res = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(record),
+          signal: controller.signal
         });
         clearTimeout(timeoutId);
-
-        let list = [];
-        if (getRes.ok) {
-          const json = await getRes.json();
-          list = (json.data && Array.isArray(json.data.registrations)) ? json.data.registrations : [];
-        }
-
-        // Deduplicate: check if record with same id or roll + activity already exists
-        const exists = list.some(r => r.id === record.id || (r.roll === record.roll && r.activity === record.activity));
-        if (!exists) {
-          list.unshift(record);
-        }
-
-        const putController = new AbortController();
-        const putTimeoutId = setTimeout(() => putController.abort(), 6000);
-        await fetch(CLOUD_URL, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: 'BFA_SPORTS_FEST_2026_MASTER',
-            data: { registrations: list }
-          }),
-          signal: putController.signal
-        });
-        clearTimeout(putTimeoutId);
-        return true;
+        return res.ok;
       } catch(err) {
-        console.warn('Cloud sync background info:', err);
+        console.warn('MongoDB sync:', err);
         return false;
       }
     }
@@ -850,9 +825,9 @@
         submitBtn.innerHTML = `Submitting & Syncing...`;
       }
 
-      // 2. Cloud sync so it appears in Admin across any computer/phone
+      // 2. Database sync so it appears in Admin across any computer/phone
       try {
-        await syncToCloud(record);
+        await syncToDatabase(record);
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;

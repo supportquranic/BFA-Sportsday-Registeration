@@ -747,7 +747,6 @@
   <script>
     const STORAGE_KEY = 'sports_fest_2026_registrations_v1';
     const ADMIN_PASS = '3344';
-    const CLOUD_URL = 'https://api.restful-api.dev/objects/ff808181a09d98f701a1d084fa35185c';
     let autoSyncTimer = null;
 
     function setCloudStatus(status, text) {
@@ -756,15 +755,15 @@
       if (status === 'syncing') {
         el.style.background = '#fff8e1';
         el.style.color = '#b06000';
-        el.textContent = '🟡 Syncing Cloud...';
+        el.textContent = '🟡 Syncing Database...';
       } else if (status === 'error') {
         el.style.background = '#fce8e6';
         el.style.color = '#c5221f';
-        el.textContent = '⚠️ Offline Cache';
+        el.textContent = text || '⚠️ Database Disconnected';
       } else {
         el.style.background = '#e6f4ea';
         el.style.color = '#137333';
-        el.textContent = text || '🟢 Cloud Live';
+        el.textContent = text || '🟢 MongoDB Live';
       }
     }
 
@@ -772,85 +771,38 @@
       setCloudStatus('syncing');
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 7000);
-        const res = await fetch(CLOUD_URL, { 
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
+        const res = await fetch('/api/records', { 
           cache: 'no-store',
           signal: controller.signal 
         });
         clearTimeout(timeoutId);
 
-        if (!res.ok) throw new Error('Cloud responded with status ' + res.status);
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error || ('Status ' + res.status));
+        }
+
         const json = await res.json();
-        const cloudList = (json.data && Array.isArray(json.data.registrations)) ? json.data.registrations : [];
+        const dbList = Array.isArray(json.registrations) ? json.registrations : [];
 
-        // Clean out any legacy demo records
-        const cleanCloud = cloudList.filter(item => 
-          !String(item.id || '').startsWith('REG-1010') && 
-          !String(item.id || '').startsWith('REG-1011')
-        );
-
-        // Get local records
-        const localList = getRegistrations();
-        
-        // Merge cloud records with local records
-        const mergedMap = new Map();
-        
-        // Add cloud first
-        cleanCloud.forEach(r => {
-          const key = r.id || (r.roll + '-' + r.activity);
-          mergedMap.set(key, r);
-        });
-
-        // Add any unsynced local records
-        let hasNewLocal = false;
-        localList.forEach(r => {
-          const key = r.id || (r.roll + '-' + r.activity);
-          if (!mergedMap.has(key)) {
-            mergedMap.set(key, r);
-            hasNewLocal = true;
-          }
-        });
-
-        const finalList = Array.from(mergedMap.values());
-        saveRegistrations(finalList);
-
-        // If local had records not yet in cloud, push merged back to cloud
-        if (hasNewLocal || cleanCloud.length !== cloudList.length) {
-          pushToCloud(finalList);
-        }
-
+        // Save to local cache
+        saveRegistrations(dbList);
         renderTable();
+
         const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        setCloudStatus('ok', `🟢 Cloud Live (${finalList.length} items · ${timeStr})`);
+        setCloudStatus('ok', `🟢 MongoDB Connected (${dbList.length} items · ${timeStr})`);
         
         if (showFeedback) {
-          showToast(`Cloud sync complete! ${finalList.length} registrations loaded.`);
+          showToast(`MongoDB synced! ${dbList.length} registrations loaded.`);
         }
       } catch(err) {
-        console.warn('Cloud sync error:', err);
-        setCloudStatus('error');
+        console.warn('MongoDB fetch error:', err);
+        setCloudStatus('error', '⚠️ Local Cache Mode');
+        renderTable();
         if (showFeedback) {
-          showToast('Could not reach cloud. Showing saved local registrations.');
+          showToast('Could not reach MongoDB. Showing local device cache.');
         }
-      }
-    }
-
-    async function pushToCloud(list) {
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 7000);
-        await fetch(CLOUD_URL, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: 'BFA_SPORTS_FEST_2026_MASTER',
-            data: { registrations: list }
-          }),
-          signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-      } catch(err) {
-        console.warn('Failed to push to cloud:', err);
       }
     }
 
@@ -1049,21 +1001,33 @@
       }).join('');
     }
 
-    function deleteRecord(id) {
+    async function deleteRecord(id) {
       if (!confirm('Remove this registration?')) return;
       let list = getRegistrations();
       list = list.filter(x => x.id !== id);
       saveRegistrations(list);
-      pushToCloud(list);
       renderTable();
-      showToast('Registration removed from local storage and cloud.');
+      try {
+        await fetch(`/api/records?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+      } catch(e) {
+        console.warn('Delete error:', e);
+      }
+      showToast('Registration removed.');
     }
 
-    function clearAllData() {
-      if (!confirm('CAUTION: This will delete ALL registrations permanently from both this browser AND the cloud. Continue?')) return;
+    async function clearAllData() {
+      if (!confirm('CAUTION: This will delete ALL registrations permanently from both this browser and MongoDB. Continue?')) return;
       saveRegistrations([]);
-      pushToCloud([]);
       renderTable();
+      try {
+        await fetch('/api/records', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'clear' })
+        });
+      } catch(e) {
+        console.warn('Clear error:', e);
+      }
       showToast('All registration data cleared.');
     }
 

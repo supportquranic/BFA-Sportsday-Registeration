@@ -1,0 +1,12 @@
+{
+  "name": "bfa-sportsday-registration",
+  "version": "1.0.0",
+  "description": "BFA Sports & Design Fest 2026 Registration and Admin Portal with MongoDB",
+  "main": "api/records.js",
+  "scripts": {
+    "test": "echo \"No test specified\""
+  },
+  "dependencies": {
+    "mongodb": "^6.3.0"
+  }
+}
