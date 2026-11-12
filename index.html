@@ -31,64 +31,11 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Top Banner / Nav */
-    .top-bar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--l);
-      padding: 12px clamp(18px, 5vw, 60px);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .top-bar .brand {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--ink);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .top-bar .brand span {
-      background: var(--c);
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-size: 11.5px;
-      font-weight: 600;
-      color: #6845a5;
-    }
-    .top-links {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .top-btn {
-      background: #fff;
-      border: 1px solid var(--l);
-      color: var(--ink);
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.15s;
-    }
-    .top-btn:hover { background: var(--a); }
-    .top-btn.dark { background: #111; color: #fff; border-color: #111; }
-    .top-btn.dark:hover { background: #333; }
-
     /* Container */
     .container {
       max-width: 860px;
       margin: 0 auto;
-      padding: 32px clamp(18px, 5vw, 40px) 70px;
+      padding: 36px clamp(18px, 5vw, 40px) 70px;
     }
 
     .hero-header {
@@ -511,16 +458,6 @@
 </head>
 <body>
 
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <a href="register.html" class="brand">
-      Design &amp; Sports Fest 2026 <span>Student Portal</span>
-    </a>
-    <div class="top-links">
-      <a href="plan.html" class="top-btn dark">Full Event Plan</a>
-    </div>
-  </div>
-
   <div class="container">
 
     <div class="hero-header">
@@ -554,30 +491,14 @@
                 <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </div>
               <div class="custom-select-options">
-                <div class="custom-option" onclick="selectOption('semWrapper', '1st Semester Morning', '1st Semester Morning')">
-                  <span class="opt-badge f">Morning</span> 1st Semester Morning
-                </div>
-                <div class="custom-option" onclick="selectOption('semWrapper', '3rd Semester Morning', '3rd Semester Morning')">
-                  <span class="opt-badge f">Morning</span> 3rd Semester Morning
-                </div>
-                <div class="custom-option" onclick="selectOption('semWrapper', '5th Semester Morning', '5th Semester Morning')">
-                  <span class="opt-badge f">Morning</span> 5th Semester Morning
-                </div>
-                <div class="custom-option" onclick="selectOption('semWrapper', '7th Semester Morning', '7th Semester Morning')">
-                  <span class="opt-badge f">Morning</span> 7th Semester Morning
-                </div>
-                <div class="custom-option" onclick="selectOption('semWrapper', '1st Semester Evening', '1st Semester Evening')">
-                  <span class="opt-badge e">Evening</span> 1st Semester Evening
-                </div>
-                <div class="custom-option" onclick="selectOption('semWrapper', '3rd Semester Evening', '3rd Semester Evening')">
-                  <span class="opt-badge e">Evening</span> 3rd Semester Evening
-                </div>
-                <div class="custom-option" onclick="selectOption('semWrapper', '5th Semester Evening', '5th Semester Evening')">
-                  <span class="opt-badge e">Evening</span> 5th Semester Evening
-                </div>
-                <div class="custom-option" onclick="selectOption('semWrapper', '7th Semester Evening', '7th Semester Evening')">
-                  <span class="opt-badge e">Evening</span> 7th Semester Evening
-                </div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '1st Semester Morning', '1st Semester Morning')">1st Semester Morning</div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '3rd Semester Morning', '3rd Semester Morning')">3rd Semester Morning</div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '5th Semester Morning', '5th Semester Morning')">5th Semester Morning</div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '7th Semester Morning', '7th Semester Morning')">7th Semester Morning</div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '1st Semester Evening', '1st Semester Evening')">1st Semester Evening</div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '3rd Semester Evening', '3rd Semester Evening')">3rd Semester Evening</div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '5th Semester Evening', '5th Semester Evening')">5th Semester Evening</div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '7th Semester Evening', '7th Semester Evening')">7th Semester Evening</div>
               </div>
             </div>
           </div>
@@ -598,30 +519,14 @@
               <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </div>
             <div class="custom-select-options">
-              <div class="custom-option" onclick="selectActivity('Cricket')">
-                <span class="opt-badge b">Cricket</span> Cricket Match Derby (Boys) · 8 Overs (12 Morning vs. 12 Evening)
-              </div>
-              <div class="custom-option" onclick="selectActivity('Badminton')">
-                <span class="opt-badge c">Badminton</span> Girls Badminton Championship (8 Doubles Pairs Knockout)
-              </div>
-              <div class="custom-option" onclick="selectActivity('Stall')">
-                <span class="opt-badge d">Stall</span> Business &amp; Creative Stall (Food / Drinks / Art &amp; Crafts)
-              </div>
-              <div class="custom-option" onclick="selectActivity('Campaign Design')">
-                <span class="opt-badge f">Campaign</span> Campaign Design Contest (5th &amp; 7th Semesters)
-              </div>
-              <div class="custom-option" onclick="selectActivity('Jersey Design')">
-                <span class="opt-badge b">Apparel</span> Cricket Jersey Design Contest (2 per class / Interested)
-              </div>
-              <div class="custom-option" onclick="selectActivity('Media')">
-                <span class="opt-badge e">Media</span> Media Coverage Crew (Photography / Videography)
-              </div>
-              <div class="custom-option" onclick="selectActivity('Commentary')">
-                <span class="opt-badge d">Commentary</span> Match &amp; Event Commentary (Male / Female)
-              </div>
-              <div class="custom-option" onclick="selectActivity('Volunteer')">
-                <span class="opt-badge c">Volunteer</span> Organizing Volunteer / Discipline Squad
-              </div>
+              <div class="custom-option" onclick="selectActivity('Cricket', 'Cricket Match Derby (8 Overs · Morning vs. Evening)')">Cricket Match Derby (8 Overs · Morning vs. Evening)</div>
+              <div class="custom-option" onclick="selectActivity('Badminton', 'Girls Badminton Championship (8 Doubles Pairs Knockout)')">Girls Badminton Championship (8 Doubles Pairs Knockout)</div>
+              <div class="custom-option" onclick="selectActivity('Stall', 'Business &amp; Creative Stall (Food / Drinks / Art &amp; Crafts)')">Business &amp; Creative Stall (Food / Drinks / Art &amp; Crafts)</div>
+              <div class="custom-option" onclick="selectActivity('Campaign Design', 'Campaign Design Contest (5th &amp; 7th Semesters)')">Campaign Design Contest (5th &amp; 7th Semesters)</div>
+              <div class="custom-option" onclick="selectActivity('Jersey Design', 'Cricket Jersey Design Contest (Apparel Design)')">Cricket Jersey Design Contest (Apparel Design)</div>
+              <div class="custom-option" onclick="selectActivity('Media', 'Media Coverage Crew (Photography / Videography)')">Media Coverage Crew (Photography / Videography)</div>
+              <div class="custom-option" onclick="selectActivity('Commentary', 'Match &amp; Event Commentary (Male / Female)')">Match &amp; Event Commentary (Male / Female)</div>
+              <div class="custom-option" onclick="selectActivity('Volunteer', 'Organizing Volunteer / Discipline Squad')">Organizing Volunteer / Discipline Squad</div>
             </div>
           </div>
         </div>
@@ -716,23 +621,6 @@
           </div>
         </div>
 
-        <!-- Dynamic Subform: Design -->
-        <div id="subDesign" class="subform-box" style="background:var(--c);">
-          <div class="subform-title">Design Tools &amp; Experience</div>
-          <div class="subform-sub">For Campaign Teams (5th &amp; 7th Sem) or Jersey Design Contest:</div>
-
-          <div class="form-grid">
-            <div class="form-group">
-              <label class="form-label" for="designTools">Primary Design Software</label>
-              <input type="text" id="designTools" class="form-input" placeholder="e.g. Adobe Illustrator, Photoshop, Figma">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="designPortfolio">Portfolio Link (Behance / Drive / IG)</label>
-              <input type="url" id="designPortfolio" class="form-input" placeholder="https://...">
-            </div>
-          </div>
-        </div>
 
         <div class="form-actions" style="margin-top: 24px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
           <button type="submit" class="btn-submit">
@@ -791,13 +679,16 @@
       wrapper.classList.remove('open');
     }
 
-    function selectActivity(act) {
-      selectOption('actWrapper', act, act);
+    function selectActivity(act, label) {
+      selectOption('actWrapper', act, label || act);
       
-      document.getElementById('subCricket').classList.toggle('active', act === 'Cricket');
-      document.getElementById('subStall').classList.toggle('active', act === 'Stall');
-      document.getElementById('subMedia').classList.toggle('active', act === 'Media');
-      document.getElementById('subDesign').classList.toggle('active', act === 'Campaign Design' || act === 'Jersey Design');
+      const subCricket = document.getElementById('subCricket');
+      const subStall = document.getElementById('subStall');
+      const subMedia = document.getElementById('subMedia');
+
+      if (subCricket) subCricket.classList.toggle('active', act === 'Cricket');
+      if (subStall) subStall.classList.toggle('active', act === 'Stall');
+      if (subMedia) subMedia.classList.toggle('active', act === 'Media');
     }
 
     // Close on click outside
@@ -849,9 +740,10 @@
         const mRole = document.getElementById('mediaRoleVal').value;
         const gear = document.getElementById('mediaGear').value.trim();
         details = `${mRole}${gear ? ' (Gear: ' + gear + ')' : ''}`;
-      } else if (activity === 'Campaign Design' || activity === 'Jersey Design') {
-        const tools = document.getElementById('designTools').value.trim() || 'Vector / Mockups';
-        details = `Software: ${tools}`;
+      } else if (activity === 'Campaign Design') {
+        details = 'Campaign Design Entry (5th & 7th Sem)';
+      } else if (activity === 'Jersey Design') {
+        details = 'Jersey Design Contest Entry';
       } else if (activity === 'Badminton') {
         details = `Doubles Player Nomination`;
       } else if (activity === 'Commentary') {
