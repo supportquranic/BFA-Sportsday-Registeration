@@ -542,6 +542,137 @@
       gap: 12px;
     }
 
+    @media (max-width: 680px) {
+      body {
+        font-size: 13.5px;
+        line-height: 1.55;
+      }
+      header {
+        padding: 20px 14px 12px;
+      }
+      .n {
+        font-size: 11px;
+        margin-bottom: 4px;
+        letter-spacing: .03em;
+      }
+      h1 {
+        font-size: 26px;
+        margin-bottom: 8px;
+        line-height: 1.15;
+      }
+      .s {
+        font-size: 14px;
+        line-height: 1.45;
+        margin-bottom: 12px;
+      }
+      .meta-pills {
+        gap: 5px;
+        margin-top: 8px;
+      }
+      .meta-pills span {
+        padding: 2.5px 8.5px;
+        font-size: 10.5px;
+      }
+      nav .nav-inner {
+        padding: 7px 10px;
+        gap: 6px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      nav .nav-inner::-webkit-scrollbar {
+        display: none;
+      }
+      nav a {
+        font-size: 12px;
+        padding: 5px 12px;
+        flex-shrink: 0;
+      }
+      main {
+        padding: 10px 14px 40px;
+      }
+      section {
+        padding-top: 20px;
+        padding-bottom: 18px;
+      }
+      h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      h3 {
+        font-size: 15px;
+        margin: 16px 0 6px;
+      }
+      .k {
+        border-radius: 16px;
+        padding: 13px 15px;
+        margin: 10px 0;
+        font-size: 13px;
+      }
+      .g {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin: 10px 0;
+      }
+      .bracket-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .t {
+        border-radius: 16px;
+        padding: 6px 8px;
+        margin: 10px 0;
+      }
+      table {
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      th {
+        font-size: 11px;
+        padding: 7px 8px;
+      }
+      td {
+        padding: 7px 8px;
+      }
+      .pill {
+        font-size: 9.5px;
+        padding: 1px 5px;
+      }
+      .fl {
+        gap: 4px;
+        margin: 8px 0;
+      }
+      .fl span {
+        font-size: 11px;
+        padding: 3px 8px;
+      }
+      .lead-card {
+        border-radius: 16px;
+        padding: 13px 15px;
+      }
+      .lead-card h3 {
+        font-size: 14.5px;
+      }
+      .lead-card ul {
+        font-size: 12.5px;
+        padding-left: 16px;
+      }
+      details {
+        border-radius: 14px;
+        padding: 9px 12px;
+        font-size: 13px;
+      }
+      ul, ol {
+        padding-left: 18px;
+      }
+      footer {
+        padding: 16px 14px;
+        font-size: 12px;
+        margin-top: 24px;
+      }
+    }
+
     @media print {
       nav { display: none !important; }
       section { display: block !important; padding-top: 20px; break-inside: avoid; }
@@ -568,11 +699,14 @@
       <span>Separate Jersey Design</span>
     </div>
 
-    <!-- Quick Link to Registration Portal -->
+    <!-- Quick Link to Registration Portal & Mobile View -->
     <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
       <a href="register.html" style="display:inline-flex; align-items:center; gap:8px; background:#111; color:#fff; padding:9px 20px; border-radius:999px; text-decoration:none; font-size:13.5px; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
         <span>Student Registration Portal</span>
         <span>→</span>
+      </a>
+      <a href="plan-mobile.html" style="display:inline-flex; align-items:center; gap:6px; background:var(--a); color:var(--ink); border:1px solid var(--l); padding:9px 18px; border-radius:999px; text-decoration:none; font-size:13px; font-weight:500;">
+        <span>📱 Mobile Phone View</span>
       </a>
     </div>
   </header>
@@ -1437,7 +1571,13 @@
 
       const s = document.getElementById(id) || S[0];
       S.forEach(x => x.classList.toggle('on', x === s));
-      A.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + s.id));
+      A.forEach(a => {
+        const isSelected = a.getAttribute('href') === (id === 'all' ? '#all' : '#' + s.id);
+        a.classList.toggle('on', isSelected);
+        if (isSelected && window.innerWidth <= 680) {
+          a.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      });
 
       if (up) {
         const headerHeight = document.querySelector('header').offsetHeight;
