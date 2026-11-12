@@ -35,3 +35,4 @@ This project is built **100% frontend-only with zero backend required**. All stu
 - **Design System:** Soft pastel aesthetic (`--a` Cream, `--b` Blush Rose, `--c` Lavender, `--d` Amber, `--e` Peach, `--f` Sky Blue) with deep charcoal typography.
 - **Storage Engine:** HTML5 `localStorage` key `sports_fest_2026_registrations_v1`.
 - **Exporting:** Client-side UTF-8 CSV generation for direct Microsoft Excel compatibility.
+
