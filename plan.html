@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Design &amp; Sports Fest 2026 · BFA Morning vs Evening Execution Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&display=swap">
+  <style>
+    :root {
+      --ink: #1f1f1f;
+      --m: #5f5f5a;
+      --l: rgba(0,0,0,.08);
+      --l-strong: rgba(0,0,0,.15);
+      --a: #f1f0e7; /* warm cream */
+      --b: #f7ebe8; /* blush rose */
+      --c: #efebf7; /* lavender */
+      --d: #f8f1dc; /* soft butter amber */
+      --e: #f9e9dc; /* peach */
+      --f: #e6eff6; /* sky blue */
+      color-scheme: light;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--ink);
+      font: 400 16.5px/1.65 "Google Sans", Roboto, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      padding: 38px clamp(18px, 5vw, 70px) 16px;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .n {
+      font-size: 13px;
+      color: var(--m);
+      margin: 0 0 6px;
+      font-weight: 500;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: clamp(34px, 5.5vw, 56px);
+      line-height: 1.08;
+      font-weight: 600;
+      letter-spacing: -.03em;
+      margin: 0 0 10px;
+    }
+    .s {
+      color: var(--m);
+      font-size: 18.5px;
+      line-height: 1.5;
+      margin: 0 0 16px;
+      max-width: 890px;
+    }
+    .meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .meta-pills span {
+      background: var(--a);
+      border-radius: 999px;
+      padding: 3.5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .meta-pills span:nth-child(2) { background: var(--b); }
+    .meta-pills span:nth-child(3) { background: var(--c); }
+    .meta-pills span:nth-child(4) { background: var(--d); }
+    .meta-pills span:nth-child(5) { background: var(--f); }
+    .meta-pills span:nth-child(6) { background: var(--e); }
+
+    /* Sticky Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--l);
+      padding-top: env(safe-area-inset-top, 0px);
+    }
+    nav .nav-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      padding: 10px clamp(18px, 5vw, 70px);
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    nav a {
+      background: var(--a);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 14px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      font-family: inherit;
+      user-select: none;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+    }
+    nav a:nth-child(5n+2) { background: var(--b); }
+    nav a:nth-child(5n+3) { background: var(--c); }
+    nav a:nth-child(5n+4) { background: var(--d); }
+    nav a:nth-child(5n)   { background: var(--e); }
+    nav a:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+    nav a.on {
+      background: #111 !important;
+      color: #fff !important;
+      font-weight: 600 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 14px clamp(18px, 5vw, 70px) 70px;
+    }
+    section {
+      display: none;
+      padding-top: 32px;
+      padding-bottom: 26px;
+      border-bottom: 1px dashed var(--l);
+      animation: fadeIn 0.2s ease-in-out;
+    }
+    section:last-of-type {
+      border-bottom: none;
+    }
+    section.on {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: 500;
+      letter-spacing: -.02em;
+      margin: 0 0 14px;
+      line-height: 1.15;
+    }
+    h3 {
+      font-size: 19px;
+      font-weight: 500;
+      margin: 22px 0 8px;
+    }
+    p {
+      margin: 0 0 12px;
+      max-width: 960px;
+    }
+
+    /* Cards */
+    .k {
+      background: var(--a);
+      border-radius: 24px;
+      padding: 20px 24px;
+      margin: 14px 0;
+    }
+    .k.b { background: var(--b); }
+    .k.c { background: var(--c); }
+    .k.d { background: var(--d); }
+    .k.e { background: var(--e); }
+    .k.f { background: var(--f); }
+
+    /* Grids */
+    .g {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      align-items: stretch;
+      margin: 14px 0;
+    }
+    .g > * { margin: 0; }
+
+    /* Tables */
+    .t {
+      overflow-x: auto;
+      border-radius: 24px;
+      background: var(--a);
+      padding: 8px 14px;
+      margin: 14px 0;
+    }
+    .t.b { background: var(--b); }
+    .t.c { background: var(--c); }
+    .t.d { background: var(--d); }
+    .t.e { background: var(--e); }
+    .t.f { background: var(--f); }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    th {
+      text-align: left;
+      font-weight: 500;
+      color: var(--m);
+      font-size: 13.5px;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--l);
+    }
+    td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--l);
+      vertical-align: top;
+    }
+    tr:last-child td { border: 0; }
+    td:first-child { font-weight: 500; }
+
+    /* Badges & Pills - Sleek, compact and proportional to text */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      border-radius: 999px;
+      padding: 1.5px 7.5px;
+      font-size: 11px;
+      font-weight: 500;
+      white-space: nowrap;
+      background: #fff;
+      border: 1px solid var(--l);
+      line-height: 1.35;
+      vertical-align: middle;
+      letter-spacing: .01em;
+    }
+    .pill.b { background: var(--b); border-color: transparent; }
+    .pill.c { background: var(--c); border-color: transparent; }
+    .pill.d { background: var(--d); border-color: transparent; }
+    .pill.e { background: var(--e); border-color: transparent; }
+    .pill.f { background: var(--f); border-color: transparent; }
+    .pill.dark { background: #222; color: #fff; border-color: transparent; font-size: 10px; padding: 1.5px 6.5px; }
+
+    .fl {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin: 12px 0;
+    }
+    .fl span {
+      background: var(--c);
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .fl span:nth-child(4n+2) { background: var(--d); }
+    .fl span:nth-child(4n+3) { background: var(--b); }
+    .fl span:nth-child(4n)   { background: var(--f); }
+    .fl u { text-decoration: none; color: var(--m); }
+
+    /* Details */
+    details {
+      background: var(--d);
+      border-radius: 18px;
+      padding: 12px 18px;
+      margin: 14px 0;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 500;
+      outline: none;
+    }
+
+    /* Lists */
+    ul, ol {
+      margin: 6px 0 12px;
+      padding-left: 22px;
+    }
+    li { margin-bottom: 6px; }
+
+    /* Slot for names in tables */
+    .slot {
+      display: inline-block;
+      padding: 2px 8px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px dashed rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+      font-size: 12.5px;
+      color: var(--m);
+      min-width: 120px;
+    }
+
+    /* Lead Duty Card Styling */
+    .lead-card {
+      background: var(--a);
+      border-radius: 20px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .lead-card.b { background: var(--b); }
+    .lead-card.c { background: var(--c); }
+    .lead-card.d { background: var(--d); }
+    .lead-card.e { background: var(--e); }
+    .lead-card.f { background: var(--f); }
+    .lead-card h3 {
+      margin: 0 0 10px;
+      font-size: 17.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .lead-card ul {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 14.5px;
+    }
+
+    /* Timeline Stepper - Compact, subtle pill */
+    .phase-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #242424;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .03em;
+      padding: 1.5px 6.5px;
+      border-radius: 999px;
+      margin-right: 6px;
+      vertical-align: middle;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    /* Tournament Bracket Grid */
+    .bracket-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      margin: 14px 0;
+    }
+    .match-box {
+      background: #fff;
+      border: 1px solid var(--l);
+      border-radius: 14px;
+      padding: 12px 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    }
+    .match-title {
+      font-size: 11.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--m);
+      margin-bottom: 6px;
+    }
+    .match-vs {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13.5px;
+      font-weight: 500;
+    }
+
+    /* Portal & Form Styling */
+    .portal-card {
+      background: #fff;
+      border: 1px solid var(--l);
+      border-radius: 24px;
+      padding: 24px 28px;
+      margin: 16px 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--l);
+      font-family: inherit;
+      font-size: 15px;
+      background: #fff;
+      color: var(--ink);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: #111;
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+    }
+    .dynamic-subform {
+      display: none;
+      background: var(--a);
+      border-radius: 18px;
+      padding: 18px 20px;
+      margin: 14px 0;
+      animation: fadeIn 0.2s ease;
+    }
+    .dynamic-subform.active {
+      display: block;
+    }
+    .stat-badge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .stat-badge {
+      border-radius: 18px;
+      padding: 14px 16px;
+      text-align: center;
+      background: var(--a);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    .stat-badge.b { background: var(--b); }
+    .stat-badge.c { background: var(--c); }
+    .stat-badge.d { background: var(--d); }
+    .stat-badge.e { background: var(--e); }
+    .stat-badge.f { background: var(--f); }
+    .stat-num {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 3px;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--m);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    .table-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin: 16px 0 12px;
+    }
+    .table-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .btn-action {
+      background: #111;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font: 500 13px inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+    }
+    .btn-action:hover { background: #333; }
+    .btn-action-light {
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--l);
+    }
+    .btn-action-light:hover { background: var(--a); }
+    .btn-action-danger {
+      background: #b3261e;
+      color: #fff;
+    }
+    .btn-action-danger:hover { background: #8c1d18; }
+    .btn-del {
+      background: #fff;
+      border: 1px solid #e0b4b4;
+      color: #b3261e;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 11.5px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-del:hover {
+      background: #fce8ee;
+    }
+    #toastMsg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #111;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 500;
+      z-index: 100;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+
+    footer {
+      max-width: 1240px;
+      margin: 40px auto 20px;
+      padding: 24px clamp(18px, 5vw, 70px);
+      border-top: 1px solid var(--l);
+      color: var(--m);
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media print {
+      nav { display: none !important; }
+      section { display: block !important; padding-top: 20px; break-inside: avoid; }
+      body { font-size: 14px; }
+      .k, .t, .lead-card { break-inside: avoid; }
+      footer { border-top: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <p class="n">Department of Graphic Design · BFA Morning &amp; Evening Execution Plan</p>
+    <h1>Design &amp; Sports Fest 2026</h1>
+    <p class="s">A one-day departmental celebration uniting athletic spirit, creative branding, student entrepreneurship, and media production between BFA Morning and BFA Evening.</p>
+    <div class="meta-pills">
+      <span>BFA Morning &amp; Evening</span>
+      <span>1 Full Day Festival</span>
+      <span>8 Classes (4 Morning + 4 Evening)</span>
+      <span>Cricket Derby (12 vs 12 · 8 Overs)</span>
+      <span>Girls Badminton (8 Pairs Knockout)</span>
+      <span>Campaign Design (5th &amp; 7th Sem)</span>
+      <span>Separate Jersey Design</span>
+    </div>
+
+    <!-- Quick Links to Standalone Portals -->
+    <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+      <a href="register.html" style="display:inline-flex; align-items:center; gap:8px; background:#111; color:#fff; padding:9px 20px; border-radius:999px; text-decoration:none; font-size:13.5px; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
+        <span>Student Registration Portal</span>
+        <span>→</span>
+      </a>
+      <a href="admin.html" style="display:inline-flex; align-items:center; gap:8px; background:var(--d); color:var(--ink); padding:9px 20px; border-radius:999px; text-decoration:none; font-size:13.5px; font-weight:600;">
+        <span>Live Admin Dashboard</span>
+        <span>→</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Sticky Nav Tabs -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#all" class="on">All Sections</a>
+      <a href="#overview">Overview</a>
+      <a href="#competitions">Competitions</a>
+      <a href="#badminton-bracket">Badminton Schedule</a>
+      <a href="#committees">Committees</a>
+      <a href="#class-reps">Morning &amp; Evening Reps</a>
+      <a href="#leads">Lead Duties</a>
+      <a href="#venue">Venue &amp; Safety</a>
+      <a href="#budget">Budget</a>
+      <a href="#awards">Awards</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#event-day">Event Day</a>
+      <a href="#outcomes">Outcomes</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+
+
+
+    <!-- 1. Overview -->
+    <section id="overview" class="on">
+      <p class="n">Section 01</p>
+      <h2>Event Overview &amp; Morning vs. Evening Dynamic</h2>
+      
+      <div class="k">
+        <b>Design &amp; Sports Fest 2026</b> is a comprehensive, one-day departmental festival bringing together the entire Department of Graphic Design across both shifts: <b>BFA Morning</b> and <b>BFA Evening</b> (8 academic classes total: 1st, 3rd, 5th, and 7th Semesters of Morning and Evening). The festival features an electrifying 8-over Cricket Derby, an 8-team Girls Badminton Knockout Tournament, a Senior Campaign Design Competition (4 teams from 5th &amp; 7th Semesters) creating one unified fest brand, a separate dedicated Jersey Design contest, student-run creative entrepreneurship stalls, and collaborative multimedia production.
+      </div>
+
+      <div class="g">
+        <div class="k b">
+          <h3>Cricket Derby (8 Overs)</h3>
+          <p>A flagship clash between <b>BFA Morning</b> (12 players) and <b>BFA Evening</b> (12 players). One high-intensity match of 8 overs per side decides the departmental champion.</p>
+        </div>
+        <div class="k c">
+          <h3>Girls Badminton Knockout (8 Pairs)</h3>
+          <p>4 pairs from BFA Morning and 4 pairs from BFA Evening compete in a streamlined, fast-paced single-elimination knockout tournament (Quarterfinals → Semifinals → Grand Final).</p>
+        </div>
+        <div class="k d">
+          <h3>Campaign Design (5th &amp; 7th Sem)</h3>
+          <p>Senior creative showcase featuring <b>4 teams (2 from Morning, 2 from Evening)</b> representing the 5th and 7th Semesters, competing to craft the <b>one official unified fest campaign identity</b>, logos, social media campaign, and stage signage.</p>
+        </div>
+        <div class="k e">
+          <h3>Dedicated Jersey Design Contest</h3>
+          <p>A separate design category to craft the official athletic jerseys for the derby: custom kits for the <b>BFA Morning Team</b> and <b>BFA Evening Team</b>.</p>
+        </div>
+        <div class="k f">
+          <h3>Unified Media Production</h3>
+          <p>Balanced media crew with <b>2 Photographers from Morning</b> and <b>2 Videographers from Evening</b> documenting the action, interviews, and official recap aftermovie.</p>
+        </div>
+        <div class="k a">
+          <h3>Creative &amp; Food Stalls</h3>
+          <p>Student-led enterprises featuring curated food, beverages, handmade bouquets, crochet work, and creative merchandise with custom stall presentations.</p>
+        </div>
+      </div>
+
+      <div class="fl">
+        <span>BFA Morning vs. BFA Evening</span>
+        <u>→</u>
+        <span>12 vs 12 Cricket (8 Overs)</span>
+        <u>→</u>
+        <span>8 Badminton Pairs Knockout</span>
+        <u>→</u>
+        <span>One Unified Campaign (5th &amp; 7th Sem)</span>
+        <u>→</u>
+        <span>Separate Jersey Design</span>
+        <u>→</u>
+        <span>Shared Shift Unity</span>
+      </div>
+    </section>
+
+    <!-- 2. Competitions -->
+    <section id="competitions" class="on">
+      <p class="n">Section 02</p>
+      <h2>Competition &amp; Participation Plan</h2>
+      <p>Structured to guarantee equal representation, healthy shift rivalry, and maximum participation between BFA Morning and BFA Evening.</p>
+
+      <div class="t">
+        <table>
+          <thead>
+            <tr>
+              <th>Competition</th>
+              <th>Shift Division</th>
+              <th>Participants &amp; Squads</th>
+              <th>Match Format &amp; Rules</th>
+              <th>Awards &amp; Recognition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cricket Match Derby</td>
+              <td><span class="pill f">Boys</span></td>
+              <td><b>12 Morning squad vs. 12 Evening squad</b><br>(24 players total)</td>
+              <td><b>One direct match decides the champion · 8 overs per innings</b>. Maximum 2 overs per bowler. Pure fast-paced cricket excitement.</td>
+              <td>Cricket Champions Trophy, Runner-up Shield, Man of the Match, Best Bowler</td>
+            </tr>
+            <tr>
+              <td>Badminton Championship</td>
+              <td><span class="pill b">Girls</span></td>
+              <td><b>8 Doubles Pairs (16 players total)</b>:<br>4 pairs Morning + 4 pairs Evening</td>
+              <td><b>Quick Single-Elimination Knockout (7 matches total)</b>: 4 Quarterfinals (15 pts) → 2 Semifinals (21 pts) → 1 Grand Final (21 pts).</td>
+              <td>Badminton Champions Trophy, Runner-up Shield, Player of the Tournament</td>
+            </tr>
+            <tr>
+              <td>Campaign Design Contest</td>
+              <td><span class="pill c">Campaign</span></td>
+              <td><b>4 Teams Total (5th &amp; 7th Semesters)</b>:<br>2 Teams Morning (5th &amp; 7th) + 2 Teams Evening (5th &amp; 7th)</td>
+              <td>Senior designer teams compete to create the <b>one official unified fest campaign identity</b> (Official fest logo, promotional posters, social media teasers/reels, stage banners, and passes). Winning concept executes official production.</td>
+              <td>Best Campaign Design Trophy</td>
+            </tr>
+            <tr>
+              <td>Cricket Jersey Design Contest</td>
+              <td><span class="pill b">Apparel</span></td>
+              <td><b>2 Individuals from Each Class</b><br>(or interested students only)</td>
+              <td><b>Dedicated separate apparel contest</b> to design match jerseys: <b>BFA Morning Team Kit</b> and <b>BFA Evening Team Kit</b>. Done by 2 individuals from each class, or interested students only. Winning kits are manufactured and printed for all 24 players.</td>
+              <td>Best Jersey Design Award</td>
+            </tr>
+            <tr>
+              <td>Creative &amp; Business Stalls</td>
+              <td><span class="pill d">Open to All</span></td>
+              <td>Solo or pairs from Morning &amp; Evening classes</td>
+              <td>Students conceptualize unique brands, stall decor, packaging, and food/beverage or art/craft presentations.</td>
+              <td>Best Food &amp; Beverage Stall, Best Art &amp; Craft Stall</td>
+            </tr>
+            <tr>
+              <td>Media Coverage Crew</td>
+              <td><span class="pill e">Media</span></td>
+              <td><b>1 Single Media Lead + 4 Crew</b>:<br>2 Photographers (Morning) + 2 Videographers (Evening)</td>
+              <td>Complete photo &amp; video documentary: high-res action stills, portraiture, behind-the-scenes reels, and cinematic official aftermovie.</td>
+              <td>Official Media Team Certificates</td>
+            </tr>
+            <tr>
+              <td>Match &amp; Event Commentary</td>
+              <td><span class="pill dark">Hosting</span></td>
+              <td><b>2 Commentators</b>:<br>1 Male Commentator + 1 Female Commentator</td>
+              <td>Live 8-over cricket ball-by-ball commentary, badminton court play-by-play, crowd engagement, and ceremonial announcements.</td>
+              <td>Official Commentator Recognition</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="g">
+        <div class="k c">
+          <h3>Campaign Design Deliverables (One Official Campaign)</h3>
+          <ul>
+            <li>Official Fest Logo &amp; Master Visual Identity System</li>
+            <li>Promotional Posters &amp; Instagram/Social Media Campaign Content</li>
+            <li>VIP Invitation Cards, Badges &amp; Participant Passes</li>
+            <li>Ceremonial Certificates, Main Stage Backdrop &amp; Wayfinding Signage</li>
+          </ul>
+        </div>
+        <div class="k b">
+          <h3>Jersey Design Deliverables (Separate Apparel Contest)</h3>
+          <p style="font-size: 13px; color: var(--m); margin: 0 0 8px;">Done by 2 individuals from each class, or interested student designers only.</p>
+          <ul>
+            <li><b>BFA Morning Cricket Kit:</b> Custom jersey layout, shift branding, player numbers, and graphics.</li>
+            <li><b>BFA Evening Cricket Kit:</b> Distinct contrast jersey layout, shift branding, player numbers, and graphics.</li>
+            <li><b>Sublimation Print Files:</b> Production-ready vector mockups for direct athletic fabric manufacturing.</li>
+          </ul>
+        </div>
+        <div class="k d">
+          <h3>Stall Categories &amp; Offerings</h3>
+          <ul>
+            <li><b>Art &amp; Crafts:</b> Handmade bouquets, crochet work.</li>
+            <li><b>Specialty Beverages:</b> Mocktails, iced teas, artisan coffees, fresh juices.</li>
+            <li><b>Food &amp; Bakery:</b> Homemade baked goods, quick bites, artisanal street snacks.</li>
+            <li><b>Handmade Products:</b> Handmade items, custom accessories, jewelry.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Badminton Knockout Schedule -->
+    <section id="badminton-bracket" class="on">
+      <p class="n">Section 03</p>
+      <h2>Girls Badminton: Quick Knockout Schedule</h2>
+      <p>To keep the tournament intense, exciting, and time-efficient, an 8-team single-elimination bracket is scheduled across 7 matches (~90 minutes total play time).</p>
+
+      <div class="k f">
+        <b>Tournament Format:</b> Quarterfinals are played to 15 rally points (sudden death at 14-all). Semifinals and Grand Final are played to 21 regulation rally points. This ensures swift match turnaround and high spectator energy.
+      </div>
+
+      <h3>Round 1: Quarterfinals (4 Matches · 15 Points)</h3>
+      <div class="bracket-grid">
+        <div class="match-box">
+          <div class="match-title">Quarterfinal 1</div>
+          <div class="match-vs">
+            <span>Morning 1st Sem</span>
+            <span class="pill dark">VS</span>
+            <span>Evening 1st Sem</span>
+          </div>
+        </div>
+        <div class="match-box">
+          <div class="match-title">Quarterfinal 2</div>
+          <div class="match-vs">
+            <span>Morning 3rd Sem</span>
+            <span class="pill dark">VS</span>
+            <span>Evening 3rd Sem</span>
+          </div>
+        </div>
+        <div class="match-box">
+          <div class="match-title">Quarterfinal 3</div>
+          <div class="match-vs">
+            <span>Morning 5th Sem</span>
+            <span class="pill dark">VS</span>
+            <span>Evening 5th Sem</span>
+          </div>
+        </div>
+        <div class="match-box">
+          <div class="match-title">Quarterfinal 4</div>
+          <div class="match-vs">
+            <span>Morning 7th Sem</span>
+            <span class="pill dark">VS</span>
+            <span>Evening 7th Sem</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Round 2: Semifinals (2 Matches · 21 Points)</h3>
+      <div class="bracket-grid">
+        <div class="match-box" style="border-left: 4px solid #6845a5;">
+          <div class="match-title">Semifinal 1</div>
+          <div class="match-vs">
+            <span>Winner QF 1</span>
+            <span class="pill b">VS</span>
+            <span>Winner QF 2</span>
+          </div>
+        </div>
+        <div class="match-box" style="border-left: 4px solid #6845a5;">
+          <div class="match-title">Semifinal 2</div>
+          <div class="match-vs">
+            <span>Winner QF 3</span>
+            <span class="pill b">VS</span>
+            <span>Winner QF 4</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Round 3: Grand Championship Final (21 Points)</h3>
+      <div class="match-box" style="border: 2px solid #111; background: var(--d); max-width: 500px;">
+        <div class="match-title" style="color: #111; font-weight: 700;">Grand Championship Final</div>
+        <div class="match-vs" style="font-size: 15px;">
+          <span>Winner Semifinal 1</span>
+          <span class="pill dark" style="padding: 2px 10px;">FINALS</span>
+          <span>Winner Semifinal 2</span>
+        </div>
+        <p style="margin: 8px 0 0; font-size: 12.5px; color: var(--m);">Winner receives the Badminton Champions Trophy · Runner-up receives Silver Shield</p>
+      </div>
+    </section>
+
+    <!-- 4. Committees -->
+    <section id="committees" class="on">
+      <p class="n">Section 04</p>
+      <h2>Management Committees &amp; Dual-Shift Lead Division</h2>
+      <p>Functional leads are divided equitably between BFA Morning and BFA Evening to ensure balanced operational leadership and mutual coordination.</p>
+
+      <div class="t">
+        <table>
+          <thead>
+            <tr>
+              <th>Committee</th>
+              <th>Primary Mandate</th>
+              <th>Shift Division &amp; Designated Leads</th>
+              <th>Team Composition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Main Event Management</td>
+              <td>Master schedule, faculty liaison &amp; overall operational alignment</td>
+              <td><b>3 Main Event Leads</b></td>
+              <td>Central Organizing Committee</td>
+            </tr>
+            <tr>
+              <td>Sports Management</td>
+              <td>Overall umpire coordination, fixtures &amp; equipment</td>
+              <td><b>2 Co-Leads:</b> 1 Morning Lead + 1 Evening Lead</td>
+              <td>4 Sports Coordinators</td>
+            </tr>
+            <tr>
+              <td>Cricket Management</td>
+              <td>Pitch setup, team kits, scoring desk &amp; 8-over derby</td>
+              <td><b>2 Captains:</b> Morning Captain + Evening Captain</td>
+              <td>2 Teams of 12 + Neutral Umpire</td>
+            </tr>
+            <tr>
+              <td>Badminton Management</td>
+              <td>Gymnasium court setup, shuttles &amp; knockout bracket</td>
+              <td><b>2 Coordinators:</b> 1 Morning + 1 Evening</td>
+              <td>8 Doubles Pairs + Referee</td>
+            </tr>
+            <tr>
+              <td>Campaign &amp; Branding Design</td>
+              <td>One unified fest logo, posters, social media &amp; stage branding</td>
+              <td><b>2 Coordinators:</b> 1 Morning + 1 Evening</td>
+              <td>4 Senior Teams (5th &amp; 7th Sem: 2 Morning + 2 Evening)</td>
+            </tr>
+            <tr>
+              <td>Jersey Design &amp; Apparel</td>
+              <td>Cricket derby match kits (Morning Kit &amp; Evening Kit)</td>
+              <td><b>2 Apparel Leads:</b> 1 Morning + 1 Evening</td>
+              <td>2 Individuals per class, or interested designers only</td>
+            </tr>
+            <tr>
+              <td>Match &amp; Event Commentary</td>
+              <td>Live match play-by-play, stage announcements &amp; award hosting</td>
+              <td><b>2 Commentators:</b> 1 Male + 1 Female</td>
+              <td>Dual-mic Commentary Desk</td>
+            </tr>
+            <tr>
+              <td>Stall Management</td>
+              <td>Layout allocation, vendor registrations &amp; power/tables</td>
+              <td><b>2 Co-Leads:</b> 1 Morning + 1 Evening</td>
+              <td>Stall Participants</td>
+            </tr>
+            <tr>
+              <td>Finance &amp; Budget</td>
+              <td>Fee collection, transparent ledgers &amp; procurement oversight</td>
+              <td><b>2 Co-Leads:</b> 1 Morning + 1 Evening</td>
+              <td>2 Finance Assistants</td>
+            </tr>
+            <tr>
+              <td>Media &amp; Documentation (Photo &amp; Video)</td>
+              <td>High-res photography, portraiture, action reels &amp; final aftermovie</td>
+              <td><b>1 Single Media Lead</b></td>
+              <td><b>4 Media Crew:</b> 2 Photographers (Morning) + 2 Videographers (Evening)</td>
+            </tr>
+            <tr>
+              <td>Logistics &amp; Venue</td>
+              <td>Seating, sound system, shade canopies, tables &amp; water</td>
+              <td><b>2 Co-Leads:</b> 1 Morning + 1 Evening</td>
+              <td>Joint Logistics Crew</td>
+            </tr>
+            <tr>
+              <td>Registration &amp; Hospitality</td>
+              <td>Check-in desk, guest greeting &amp; refreshment coordination</td>
+              <td><b>4 Reps:</b> 2 Morning + 2 Evening</td>
+              <td>Hospitality Desk</td>
+            </tr>
+            <tr>
+              <td>Discipline &amp; Safety</td>
+              <td>Crowd flow, code of conduct &amp; campus boundary security</td>
+              <td><b>Joint Squad:</b> Morning &amp; Evening Discipline Leads</td>
+              <td>Discipline Squad</td>
+            </tr>
+            <tr>
+              <td>Cleaning &amp; Property Protection</td>
+              <td>Zero-litter enforcement, bin management &amp; final site cleanup</td>
+              <td><b>Joint Responsibility:</b> Morning &amp; Evening Teams</td>
+              <td>All Committees Combined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5. Class Reps -->
+    <section id="class-reps" class="on">
+      <p class="n">Section 05</p>
+      <h2>BFA Morning &amp; Evening Class Representatives</h2>
+      <p>Each of the 8 classes (4 Morning and 4 Evening) nominates an official representative to liaise directly with the central organizing committee.</p>
+
+      <div class="t c">
+        <table>
+          <thead>
+            <tr>
+              <th>Shift &amp; Semester</th>
+              <th>Nominated Representative</th>
+              <th>Class Role &amp; Responsibilities</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Morning</b> · 1st Semester</td>
+              <td><span class="slot">Nomination Pending</span></td>
+              <td>Cricket nominations (12-man squad pool), 1 badminton pair, stall registration</td>
+              <td><span class="pill">Pending</span></td>
+            </tr>
+            <tr>
+              <td><b>Morning</b> · 3rd Semester</td>
+              <td><span class="slot">Nomination Pending</span></td>
+              <td>Cricket nominations (12-man squad pool), 1 badminton pair, stall registration</td>
+              <td><span class="pill">Pending</span></td>
+            </tr>
+            <tr>
+              <td><b>Morning</b> · 5th Semester</td>
+              <td><span class="slot">Nomination Pending</span></td>
+              <td><b>Campaign Design Team (5th Sem Morning)</b>, cricket &amp; badminton roster</td>
+              <td><span class="pill">Pending</span></td>
+            </tr>
+            <tr>
+              <td><b>Morning</b> · 7th Semester</td>
+              <td><span class="slot">Nomination Pending</span></td>
+              <td><b>Campaign Design Team (7th Sem Morning)</b>, cricket &amp; senior mentorship</td>
+              <td><span class="pill">Pending</span></td>
+            </tr>
+            <tr>
+              <td><b>Evening</b> · 1st Semester</td>
+              <td><span class="slot">Nomination Pending</span></td>
+              <td>Cricket nominations (12-man squad pool), 1 badminton pair, stall registration</td>
+              <td><span class="pill">Pending</span></td>
+            </tr>
+            <tr>
+              <td><b>Evening</b> · 3rd Semester</td>
+              <td><span class="slot">Nomination Pending</span></td>
+              <td>Cricket nominations (12-man squad pool), 1 badminton pair, stall registration</td>
+              <td><span class="pill">Pending</span></td>
+            </tr>
+            <tr>
+              <td><b>Evening</b> · 5th Semester</td>
+              <td><span class="slot">Nomination Pending</span></td>
+              <td><b>Campaign Design Team (5th Sem Evening)</b>, cricket &amp; badminton roster</td>
+              <td><span class="pill">Pending</span></td>
+            </tr>
+            <tr>
+              <td><b>Evening</b> · 7th Semester</td>
+              <td><span class="slot">Nomination Pending</span></td>
+              <td><b>Campaign Design Team (7th Sem Evening)</b>, cricket &amp; senior mentorship</td>
+              <td><span class="pill">Pending</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="k d">
+        <b>Mandate of Morning &amp; Evening Representatives:</b> Reps communicate with their respective shift peers. They ensure cricket nominations for the 12-man squad are finalized, register their class doubles badminton pair, coordinate 2 jersey designers from each class (or interested students), organize campaign participants into the 4 senior teams (5th &amp; 7th semesters across Morning and Evening), and confirm contribution collections.
+      </div>
+    </section>
+
+    <!-- 6. Leads Duties -->
+    <section id="leads" class="on">
+      <p class="n">Section 06</p>
+      <h2>Key Responsibilities of Committee Leads</h2>
+      <p>Operational checkpoints for the joint Morning &amp; Evening functional leads:</p>
+
+      <div class="g">
+        <div class="lead-card c">
+          <h3>Main Event Leads <span class="pill dark">3 Leads</span></h3>
+          <ul>
+            <li><b>3 Main Leads:</b> Oversee full event coordination, operational alignment, and committee execution.</li>
+            <li>Maintain continuous direct liaison with faculty advisers and university administration.</li>
+            <li>Enforce master schedule milestones and conduct the official opening and closing ceremonies.</li>
+          </ul>
+        </div>
+
+        <div class="lead-card f">
+          <h3>Sports Co-Leads <span class="pill dark">Athletics</span></h3>
+          <ul>
+            <li>Finalize the verified 12-player Morning squad and 12-player Evening squad.</li>
+            <li>Organize the 8-team Girls Badminton knockout bracket and schedule courts.</li>
+            <li>Appoint unbiased neutral student umpires/referees for all matches.</li>
+          </ul>
+        </div>
+
+        <div class="lead-card b">
+          <h3>Campaign Design Leads <span class="pill dark">Campaign</span></h3>
+          <ul>
+            <li>Oversee the 4 senior design teams (5th &amp; 7th Semesters: 2 Morning + 2 Evening).</li>
+            <li>Organize jury review to select the <b>one official unified fest campaign identity</b>.</li>
+            <li>Coordinate prepress production for promotional posters, passes, and main stage backdrop.</li>
+          </ul>
+        </div>
+
+        <div class="lead-card c">
+          <h3>Jersey Design Leads <span class="pill dark">Apparel</span></h3>
+          <ul>
+            <li>Manage entries from 2 individuals per class, or interested student designers only.</li>
+            <li>Coordinate selection and prepress printing for the BFA Morning Kit and BFA Evening Kit.</li>
+            <li>Ensure custom sublimated jerseys are printed and delivered to the 24 cricket derby players on time.</li>
+          </ul>
+        </div>
+
+        <div class="lead-card d">
+          <h3>Stall Management Leads <span class="pill dark">Commerce</span></h3>
+          <ul>
+            <li>Register food, beverage, and craft stalls across Morning and Evening students.</li>
+            <li>Map out ground layout and assign numbered tables equitably.</li>
+            <li>Coordinate power access, hygiene standards, and waste bins around stall zones.</li>
+          </ul>
+        </div>
+
+        <div class="lead-card e">
+          <h3>Finance &amp; Budget Leads <span class="pill dark">Accounts</span></h3>
+          <ul>
+            <li>Collect and record class contributions across all 8 classes into a shared ledger.</li>
+            <li>Note: Exact contribution amounts (class contributions &amp; stall fees) to be decided later.</li>
+            <li>Maintain verifiable receipts and bills for every procurement and print run.</li>
+            <li>Prepare and publish an audited transparent expense summary post-event.</li>
+          </ul>
+        </div>
+
+        <div class="lead-card f">
+          <h3>Media &amp; Documentation <span class="pill dark">1 Single Lead</span></h3>
+          <ul>
+            <li><b>1 Single Media Lead:</b> Directly schedules and manages the joint photography and videography production.</li>
+            <li><b>2 Photographers (Morning):</b> Action sports stills, high-resolution portraiture, and stall features.</li>
+            <li><b>2 Videographers (Evening):</b> Match highlights, cinematic reels, student interviews, and official aftermovie.</li>
+          </ul>
+        </div>
+
+        <div class="lead-card a">
+          <h3>Logistics &amp; Venue Leads <span class="pill dark">Operations</span></h3>
+          <ul>
+            <li>Arrange tables, chairs, canopies, podium, and dual-mic PA sound system.</li>
+            <li>Coordinate grounds setup for the 8-over cricket match and gym for badminton.</li>
+            <li>Oversee orderly teardown and complete equipment return post-fest.</li>
+          </ul>
+        </div>
+
+        <div class="lead-card d">
+          <h3>Discipline &amp; Cleaning Leads <span class="pill dark">Security</span></h3>
+          <ul>
+            <li>Maintain campus boundary security and uphold inter-shift sportsmanship.</li>
+            <li>Safeguard university property, surfaces, and sports facilities from damage.</li>
+            <li>Mobilize mandatory post-event cleanup teams across grounds and courts.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Venue -->
+    <section id="venue" class="on">
+      <p class="n">Section 07</p>
+      <h2>Venue Allocation &amp; Safety Guidelines</h2>
+      <p>Carefully divided between outdoor open lawns and the indoor gymnasium (subject to formal university approval).</p>
+
+      <div class="t">
+        <table>
+          <thead>
+            <tr>
+              <th>Designated Venue</th>
+              <th>Activities Hosted</th>
+              <th>Facilities &amp; Setup Requirements</th>
+              <th>Notes &amp; Access Controls</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Main University Ground</td>
+              <td><b>Cricket Derby (Morning vs. Evening · 8 Overs)</b> · Food &amp; Art Stalls · Stage &amp; Award Ceremony · General Audience</td>
+              <td>Marked boundary rope, commentary desk with dual microphones (1 Male, 1 Female commentator), stall canopies, spectator seating</td>
+              <td>Central open-air hub. Wide open layout for free student movement.</td>
+            </tr>
+            <tr>
+              <td>University Gymnasium</td>
+              <td><b>Badminton Knockout Tournament (8 Doubles Pairs)</b></td>
+              <td>Regulation indoor court markings, tournament net, referee high chair, player warm-up bench</td>
+              <td>Protected indoor environment ensuring comfort and privacy for female competitors.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="k b">
+        <h3>Mandatory Campus Property Protection Protocols</h3>
+        <ul>
+          <li><b>Zero Property Damage:</b> Walls, sports surfaces, glass panes, and furniture must not have tape or permanent fasteners attached.</li>
+          <li><b>Careful Installations:</b> All banners, signage, and stall structures must be freestanding or secured with non-damaging ties.</li>
+          <li><b>Litter-Free Mandate:</b> Dedicated color-coded recycling and waste bins installed every 15 meters around stall zones.</li>
+          <li><b>Full Restoration:</b> No committee departs until the ground and gymnasium are returned in pristine, spotless condition.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8. Budget -->
+    <section id="budget" class="on">
+      <p class="n">Section 08</p>
+      <h2>Budget &amp; Financial Management</h2>
+      <p>The entire festival operates on an equitable, self-sustaining model funded through collective class contributions and stall registrations.</p>
+
+      <div class="g">
+        <div class="t d">
+          <table>
+            <thead>
+              <tr>
+                <th>Revenue Source</th>
+                <th>Contribution Structure</th>
+                <th>Financial Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Whole Class Contribution</td>
+                <td>Small contribution across whole classes<br><span class="pill d" style="margin-top:4px;">Amount to be decided later</span></td>
+                <td>Contributed collectively across all 8 classes (4 Morning + 4 Evening) to cover common fest logistics, trophies, jerseys, and sound.</td>
+              </tr>
+              <tr>
+                <td>Stall Registration</td>
+                <td>Small contribution per stall<br><span class="pill d" style="margin-top:4px;">Amount to be decided later</span></td>
+                <td>Stall participants recover their initial investment directly through on-day food, beverage, and craft sales.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="k e">
+          <h3>Target Expense Breakdown</h3>
+          <div class="fl" style="margin-top: 6px;">
+            <span>Cricket Jerseys &amp; Kits (Morning &amp; Evening)</span>
+            <span>Championship Trophies &amp; Medals</span>
+            <span>Heavy Cardstock Certificates</span>
+            <span>Promotional Banners &amp; Signage</span>
+            <span>Essential Logistics, Sound &amp; Hydration</span>
+          </div>
+          <p style="margin-top: 10px; font-size: 14.5px; color: var(--ink); background: rgba(255,255,255,0.7); padding: 12px 16px; border-radius: 14px; border: 1px solid var(--l);">
+            <b>Note on Collection Amounts:</b> The exact contribution amounts for both <b>Whole Class Contributions</b> (across the 8 Morning &amp; Evening classes) and <b>Stall Registrations</b> will be decided later in mutual consultation between the faculty advisers and semester representatives. All funds and expenses will be recorded transparently.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Awards -->
+    <section id="awards" class="on">
+      <p class="n">Section 09</p>
+      <h2>Awards &amp; Recognition</h2>
+      <p>Honoring athletic excellence, design brilliance, and entrepreneurial grit across BFA Morning and BFA Evening.</p>
+
+      <div class="t f">
+        <table>
+          <thead>
+            <tr>
+              <th>Discipline</th>
+              <th>Championship Honor</th>
+              <th>Runner-Up / Merit Honor</th>
+              <th>Special Criteria</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cricket Match Derby</td>
+              <td>Morning vs. Evening Champions Trophy + Winners Medals</td>
+              <td>Runner-up Shield + Silver Medals</td>
+              <td>Man of the Match &amp; Best Bowler accolades</td>
+            </tr>
+            <tr>
+              <td>Badminton Championship</td>
+              <td>Badminton Champions Trophy + Gold Medals</td>
+              <td>Runner-up Shield + Silver Medals</td>
+              <td>Player of the Tournament</td>
+            </tr>
+            <tr>
+              <td>Campaign Design Contest</td>
+              <td>Best Visual Identity Trophy</td>
+              <td>Outstanding Concept Recognition</td>
+              <td>Awarded to the best of the 4 senior design teams (5th &amp; 7th Semesters: Morning vs. Evening)</td>
+            </tr>
+            <tr>
+              <td>Business &amp; Creative Stalls</td>
+              <td>Best Food &amp; Beverage Stall Trophy</td>
+              <td>Best Art &amp; Craft Stall Trophy</td>
+              <td>Judged on branding, packaging, decor &amp; presentation</td>
+            </tr>
+            <tr>
+              <td>Overall Department Shift Honor</td>
+              <td>Morning vs. Evening Overall Champions Cup 2026</td>
+              <td>—</td>
+              <td>Decided by total points tally across cricket, badminton, design &amp; stalls</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <details>
+        <summary>Participation Certificates for All Contributors</summary>
+        <p style="margin-top: 10px;">Every participating cricket player (12 Morning, 12 Evening), 8 badminton doubles pairs, 4 senior campaign design teams, jersey design entrants, stall owners, the media crew (1 Media Lead, 2 Morning photographers, 2 Evening videographers), and commentators will receive an official framed Certificate of Recognition signed by the Faculty Patron and Department Head.</p>
+      </details>
+    </section>
+
+    <!-- 10. Timeline -->
+    <section id="timeline" class="on">
+      <p class="n">Section 10</p>
+      <h2>Execution Timeline &amp; Roadmap</h2>
+      <p>A step-by-step phased execution ensuring smooth operational momentum leading up to event day.</p>
+
+      <div class="t">
+        <table>
+          <thead>
+            <tr>
+              <th>Timeline Phase</th>
+              <th>Key Operational Milestones</th>
+              <th>Responsible Parties</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="phase-badge">Phase 01</span> Department Approval</td>
+              <td>Formal proposal submission, faculty adviser blessing &amp; administrative date clearance.</td>
+              <td>Organizing Committee &amp; Faculty</td>
+            </tr>
+            <tr>
+              <td><span class="phase-badge">Phase 02</span> Leadership Appointment</td>
+              <td>Selection of joint committee leads and onboarding of 8 Morning/Evening representatives.</td>
+              <td>Main Event Leads &amp; Faculty</td>
+            </tr>
+            <tr>
+              <td><span class="phase-badge">Phase 03</span> Registrations &amp; Budgeting</td>
+              <td>Finalizing contribution amounts (decided later), collecting stall registrations, and roster lists.</td>
+              <td>Class Reps &amp; Finance Leads</td>
+            </tr>
+            <tr>
+              <td><span class="phase-badge">Phase 04</span> Campaign &amp; Jersey Contests</td>
+              <td>Submission of 4 senior branding concepts (5th &amp; 7th Sem: 2 Morning + 2 Evening) and separate jersey design entries; jury review and winner selection.</td>
+              <td>Design Leads &amp; Faculty</td>
+            </tr>
+            <tr>
+              <td><span class="phase-badge">Phase 05</span> Production &amp; Procurement</td>
+              <td>Jersey printing (Morning vs. Evening kits), trophy engraving, certificates &amp; equipment acquisition.</td>
+              <td>Finance &amp; Logistics Leads</td>
+            </tr>
+            <tr>
+              <td><span class="phase-badge">Phase 06</span> Venue Setup</td>
+              <td>Ground marking (8-over pitch), gym court reservation, canopy erection &amp; dual-mic audio test.</td>
+              <td>Logistics &amp; Sports Leads</td>
+            </tr>
+            <tr>
+              <td><span class="phase-badge" style="background:#b3261e;">Phase 07</span> FESTIVAL DAY</td>
+              <td>Execution of the 8-over cricket derby, 8-team badminton knockout, active stalls &amp; awards.</td>
+              <td>All Committees &amp; Attendees</td>
+            </tr>
+            <tr>
+              <td><span class="phase-badge">Phase 08</span> Wrap-up &amp; Archive</td>
+              <td>Thorough grounds cleaning, final ledger publication &amp; release of the official aftermovie.</td>
+              <td>Cleaning, Finance &amp; Media Leads</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 11. Event Day -->
+    <section id="event-day" class="on">
+      <p class="n">Section 11</p>
+      <h2>Event-Day Management &amp; Match Day Schedule</h2>
+      
+      <div class="k c">
+        <h3>Master Operational Principles</h3>
+        <ul>
+          <li><b>Unified Command:</b> Joint Morning &amp; Evening Main Leads maintain supreme coordination oversight.</li>
+          <li><b>Strict Schedule Adherence:</b> Match start times, stall opening hours, and presentation windows run according to fixed whistles.</li>
+          <li><b>Faculty Supervision:</b> Faculty advisers will be on-site throughout the day for guidance and protocol support.</li>
+          <li><b>Rapid Resolution Desk:</b> A central helpdesk handles player inquiries, visitor credentials, and equipment replacements immediately.</li>
+          <li><b>Zero Trash Left Behind:</b> Complete campus cleanup and inventory return must be confirmed before any team is formally dismissed.</li>
+        </ul>
+      </div>
+
+      <div class="g">
+        <div class="k">
+          <h3>Morning Schedule (08:30 – 12:30)</h3>
+          <ul>
+            <li>08:30 – Venue access, stall setups &amp; sound checks</li>
+            <li>09:30 – Opening remarks &amp; welcome ceremony (Morning &amp; Evening intro)</li>
+            <li>10:00 – Girls Badminton: 4 Quarterfinals Matches (Gymnasium · 15 pts each)</li>
+            <li>10:30 – Creative &amp; Food Stalls officially open</li>
+            <li>11:15 – Girls Badminton: 2 Semifinals Matches (Gymnasium · 21 pts each)</li>
+            <li>12:00 – Girls Badminton Grand Championship Final (Gymnasium)</li>
+          </ul>
+        </div>
+        <div class="k d">
+          <h3>Afternoon Schedule (12:30 – 17:00)</h3>
+          <ul>
+            <li>12:30 – Prayer &amp; Lunch break (Stall food showcase)</li>
+            <li>13:30 – Teams assemble on Main Ground &amp; Pitch inspection</li>
+            <li>13:45 – <b>Cricket Match Derby Kickoff: BFA Morning vs. BFA Evening (8 Overs)</b></li>
+            <li>14:45 – Innings Break &amp; Jury review for Best Campaign Design &amp; Best Stalls</li>
+            <li>15:00 – Cricket Match 2nd Innings &amp; Final Over Championship finish</li>
+            <li>16:00 – Grand Award Ceremony &amp; Speeches (Trophies &amp; Certificates)</li>
+            <li>16:45 – Comprehensive Cleanup &amp; Property Restoration</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. Outcomes -->
+    <section id="outcomes" class="on">
+      <p class="n">Section 12</p>
+      <h2>Expected Outcomes &amp; Departmental Value</h2>
+      <p>Investing effort into this festival delivers tangible long-term benefits for the students and the department:</p>
+
+      <div class="g">
+        <div class="lead-card f">
+          <h3>Shift Unity &amp; Brotherhood</h3>
+          <p>Dissolving barriers between BFA Morning and BFA Evening to create a unified, supportive departmental culture across all 8 classes.</p>
+        </div>
+        <div class="lead-card b">
+          <h3>Hands-on Design Experience</h3>
+          <p>6 student teams gain direct real-world experience creating identity systems, jerseys, vector assets, and promotional campaigns.</p>
+        </div>
+        <div class="lead-card d">
+          <h3>Entrepreneurship &amp; Commerce</h3>
+          <p>Practical immersion in product packaging, pricing strategy, customer engagement, and experiential retail stall design.</p>
+        </div>
+        <div class="lead-card e">
+          <h3>High-Energy Athletics</h3>
+          <p>Fostering healthy athletic rivalry and sportsmanship through the 8-over cricket derby and 8-pair badminton knockout.</p>
+        </div>
+        <div class="lead-card c">
+          <h3>Professional Portfolio Pieces</h3>
+          <p>High-quality media assets (portraits by Morning crew, cinematic aftermovie by Evening crew) for student resumes and job portfolios.</p>
+        </div>
+        <div class="lead-card a">
+          <h3>Annual Shift Tradition</h3>
+          <p>Setting a rigorous, repeatable benchmark for a celebrated annual departmental tradition for future batches to inherit.</p>
+        </div>
+      </div>
+
+      <div class="k" style="margin-top: 24px; text-align: center; background: var(--a);">
+        <h3 style="margin-top: 0;">Final Objective</h3>
+        <p style="max-width: 800px; margin: 0 auto; font-size: 17px;">
+          To organize a seamless, highly engaging, and memorable departmental festival that exemplifies the creative talent, athletic vigor, and collective unity of BFA Morning and BFA Evening Graphic Design students.
+        </p>
+      </div>
+    </section>
+
+    <!-- Dedicated Portals Access Card -->
+    <div style="background: var(--a); border: 1px solid var(--l); border-radius: 24px; padding: 36px clamp(20px, 4vw, 40px); margin: 40px 0 20px; text-align: center;">
+      <p class="n" style="margin-bottom: 6px;">Connected Event Tools</p>
+      <h3 style="font-size: 24px; margin: 0 0 10px; font-weight: 700;">Student Portal &amp; Administration Dashboard</h3>
+      <p style="font-size: 14.5px; color: var(--m); max-width: 620px; margin: 0 auto 24px; line-height: 1.6;">Students submit their activity selections in the dedicated registration portal, while committee leads monitor live participant tallies and export rosters from the admin dashboard.</p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="register.html" style="display: inline-flex; align-items: center; gap: 8px; background: #111; color: #fff; padding: 12px 28px; border-radius: 999px; text-decoration: none; font-size: 14.5px; font-weight: 600; box-shadow: 0 2px 10px rgba(0,0,0,0.12);">
+          <span>Student Registration Portal</span>
+          <span>→</span>
+        </a>
+        <a href="admin.html" style="display: inline-flex; align-items: center; gap: 8px; background: var(--d); color: var(--ink); padding: 12px 28px; border-radius: 999px; text-decoration: none; font-size: 14.5px; font-weight: 600;">
+          <span>Live Admin Dashboard</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div>Design &amp; Sports Fest 2026 · Department of Graphic Design (BFA Morning &amp; Evening)</div>
+    <div>Executive Planning Document · Prepared with Google Sans Theme</div>
+  </footer>
+
+  <!-- Script for Tab Navigation -->
+  <script>
+    const S = [...document.querySelectorAll('main > section')];
+    const A = [...document.querySelectorAll('nav a')];
+
+    function show(id, up) {
+      if (!id) id = 'all';
+      
+      if (id === 'all') {
+        S.forEach(x => x.classList.add('on'));
+        A.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#all'));
+        if (up) {
+          const headerHeight = document.querySelector('header').offsetHeight;
+          window.scrollTo({ top: headerHeight - 15, behavior: 'smooth' });
+        }
+        return;
+      }
+
+      const s = document.getElementById(id) || S[0];
+      S.forEach(x => x.classList.toggle('on', x === s));
+      A.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + s.id));
+
+      if (up) {
+        const headerHeight = document.querySelector('header').offsetHeight;
+        window.scrollTo({ top: headerHeight - 15, behavior: 'smooth' });
+      }
+    }
+
+    A.forEach(a => {
+      a.addEventListener('click', e => {
+        const href = a.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const id = href.slice(1);
+          show(id, true);
+          try {
+            history.replaceState(null, '', '#' + id);
+          } catch(err) {}
+        }
+      });
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const initialId = location.hash ? location.hash.slice(1) : 'all';
+      show(initialId, false);
+    });
+
+    window.addEventListener('hashchange', () => {
+      const targetId = location.hash ? location.hash.slice(1) : 'all';
+      show(targetId, true);
+    });
+  </script>
+</body>
+</html>

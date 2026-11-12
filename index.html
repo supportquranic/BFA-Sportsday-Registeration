@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Student Registration Portal · Design &amp; Sports Fest 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&display=swap">
+  <style>
+    :root {
+      --ink: #1f1f1f;
+      --m: #5f5f5a;
+      --l: rgba(0,0,0,.08);
+      --a: #f1f0e7; /* warm cream */
+      --b: #f7ebe8; /* blush rose */
+      --c: #efebf7; /* lavender */
+      --d: #f8f1dc; /* soft butter amber */
+      --e: #f9e9dc; /* peach */
+      --f: #e6eff6; /* sky blue */
+      color-scheme: light;
+      box-sizing: border-box;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: #fafaf9;
+      color: var(--ink);
+      font: 400 16.5px/1.65 "Google Sans", Roboto, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Banner / Nav */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--l);
+      padding: 12px clamp(18px, 5vw, 60px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .top-bar .brand {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .top-bar .brand span {
+      background: var(--c);
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #6845a5;
+    }
+    .top-links {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .top-btn {
+      background: #fff;
+      border: 1px solid var(--l);
+      color: var(--ink);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .top-btn:hover { background: var(--a); }
+    .top-btn.dark { background: #111; color: #fff; border-color: #111; }
+    .top-btn.dark:hover { background: #333; }
+
+    /* Container */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px clamp(18px, 5vw, 40px) 70px;
+    }
+
+    .hero-header {
+      margin-bottom: 24px;
+    }
+    .n {
+      font-size: 12.5px;
+      color: var(--m);
+      margin: 0 0 6px;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.12;
+      font-weight: 600;
+      letter-spacing: -.03em;
+      margin: 0 0 10px;
+    }
+    .s {
+      color: var(--m);
+      font-size: 17px;
+      line-height: 1.5;
+      margin: 0 0 16px;
+    }
+
+    /* Form Card */
+    .form-card {
+      background: #fff;
+      border: 1px solid var(--l);
+      border-radius: 24px;
+      padding: 28px clamp(18px, 4vw, 36px);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.035);
+      margin-bottom: 24px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+      position: relative;
+    }
+    .form-label {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 600;
+      margin-bottom: 7px;
+      color: var(--ink);
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1.5px solid var(--l);
+      font-family: inherit;
+      font-size: 15px;
+      background: #fff;
+      color: var(--ink);
+      transition: all 0.2s ease;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: #111;
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+    }
+
+    /* Custom Dropdown Styling */
+    .custom-select-wrapper {
+      position: relative;
+      user-select: none;
+    }
+    .custom-select-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1.5px solid var(--l);
+      background: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .custom-select-trigger:hover {
+      border-color: rgba(0,0,0,0.25);
+      background: #fafaf9;
+    }
+    .custom-select-wrapper.open .custom-select-trigger {
+      border-color: #111;
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+    }
+    .custom-select-trigger .chevron {
+      transition: transform 0.2s ease;
+      stroke: var(--m);
+    }
+    .custom-select-wrapper.open .chevron {
+      transform: rotate(180deg);
+      stroke: #111;
+    }
+    .custom-select-options {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1px solid var(--l);
+      border-radius: 18px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+      z-index: 60;
+      max-height: 280px;
+      overflow-y: auto;
+      padding: 6px;
+      display: none;
+    }
+    .custom-select-wrapper.open .custom-select-options {
+      display: block;
+      animation: dropFade 0.15s ease-out;
+    }
+    @keyframes dropFade {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .custom-option {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.12s;
+    }
+    .custom-option:hover {
+      background: var(--a);
+    }
+    .custom-option.selected {
+      background: #111 !important;
+      color: #fff !important;
+    }
+    .custom-option .opt-badge {
+      display: inline-block;
+      padding: 2px 7.5px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .custom-option.selected .opt-badge {
+      background: rgba(255,255,255,0.2) !important;
+      color: #fff !important;
+    }
+
+    /* Subforms */
+    .subform-box {
+      display: none;
+      background: var(--a);
+      border-radius: 20px;
+      padding: 20px 22px;
+      margin: 18px 0;
+      border: 1px solid rgba(0,0,0,0.04);
+      animation: dropFade 0.2s ease-out;
+    }
+    .subform-box.active {
+      display: block;
+    }
+    .subform-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+    .subform-sub {
+      font-size: 13.5px;
+      color: var(--m);
+      margin: 0 0 14px;
+    }
+
+    /* Pills */
+    .opt-badge.f { background: var(--f); color: #235882; }
+    .opt-badge.e { background: var(--e); color: #9c5222; }
+    .opt-badge.b { background: var(--b); color: #8e3232; }
+    .opt-badge.c { background: var(--c); color: #58338e; }
+    .opt-badge.d { background: var(--d); color: #7a5f10; }
+
+    /* Submit Button */
+    .btn-submit {
+      background: #111;
+      color: #fff;
+      border: none;
+      padding: 13px 32px;
+      border-radius: 999px;
+      font: 600 15px inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .btn-submit:hover {
+      background: #333;
+      transform: translateY(-1px);
+    }
+
+    /* Plan Callout Banner at End */
+    .plan-callout {
+      background: var(--d);
+      border-radius: 24px;
+      padding: 28px 30px;
+      margin-top: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .plan-callout h3 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -.02em;
+    }
+    .plan-callout p {
+      margin: 0;
+      color: var(--m);
+      font-size: 14.5px;
+      max-width: 520px;
+    }
+    .btn-plan {
+      background: #111;
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 26px;
+      border-radius: 999px;
+      font-size: 14.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .btn-plan:hover {
+      background: #333;
+      transform: translateY(-1px);
+    }
+
+    /* Toast */
+    #toastMsg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #111;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 100;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      display: none;
+      animation: dropFade 0.2s ease;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--m);
+      font-size: 13.5px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <a href="register.html" class="brand">
+      Design &amp; Sports Fest 2026 <span>Student Portal</span>
+    </a>
+    <div class="top-links">
+      <a href="admin.html" class="top-btn">Admin Dashboard</a>
+      <a href="Design_Sports_Fest_2026_Google_Sans-1.html" class="top-btn dark">Full Event Plan</a>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="hero-header">
+      <p class="n">Department of Graphic Design · BFA Morning &amp; Evening</p>
+      <h1>Student Registration Portal</h1>
+      <p class="s">Select your semester and activity interest below. All registrations are recorded directly into the department ledger for squad and stall assignments.</p>
+    </div>
+
+    <!-- Registration Form -->
+    <div class="form-card">
+      <form id="regForm" onsubmit="submitForm(event)">
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="studentName">Full Name *</label>
+            <input type="text" id="studentName" class="form-input" placeholder="e.g. Ali Ahmed / Sara Khan" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="studentRoll">Student ID / Roll No *</label>
+            <input type="text" id="studentRoll" class="form-input" placeholder="e.g. BFA-2023-42" required>
+          </div>
+
+          <!-- Custom Semester Dropdown -->
+          <div class="form-group">
+            <label class="form-label">Semester &amp; Shift (Combined) *</label>
+            <div class="custom-select-wrapper" id="semWrapper">
+              <input type="hidden" id="studentSemester" required>
+              <div class="custom-select-trigger" onclick="toggleDropdown('semWrapper')">
+                <span class="trigger-label" id="semLabel">-- Choose Semester &amp; Shift --</span>
+                <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
+              <div class="custom-select-options">
+                <div class="custom-option" onclick="selectOption('semWrapper', '1st Semester Morning', '1st Semester Morning')">
+                  <span class="opt-badge f">Morning</span> 1st Semester Morning
+                </div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '3rd Semester Morning', '3rd Semester Morning')">
+                  <span class="opt-badge f">Morning</span> 3rd Semester Morning
+                </div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '5th Semester Morning', '5th Semester Morning')">
+                  <span class="opt-badge f">Morning</span> 5th Semester Morning
+                </div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '7th Semester Morning', '7th Semester Morning')">
+                  <span class="opt-badge f">Morning</span> 7th Semester Morning
+                </div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '1st Semester Evening', '1st Semester Evening')">
+                  <span class="opt-badge e">Evening</span> 1st Semester Evening
+                </div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '3rd Semester Evening', '3rd Semester Evening')">
+                  <span class="opt-badge e">Evening</span> 3rd Semester Evening
+                </div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '5th Semester Evening', '5th Semester Evening')">
+                  <span class="opt-badge e">Evening</span> 5th Semester Evening
+                </div>
+                <div class="custom-option" onclick="selectOption('semWrapper', '7th Semester Evening', '7th Semester Evening')">
+                  <span class="opt-badge e">Evening</span> 7th Semester Evening
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="studentPhone">WhatsApp / Contact Number *</label>
+            <input type="tel" id="studentPhone" class="form-input" placeholder="e.g. 0300-1234567" required>
+          </div>
+        </div>
+
+        <!-- Custom Activity Dropdown -->
+        <div class="form-group" style="margin-top: 8px;">
+          <label class="form-label">Activity / Area of Interest *</label>
+          <div class="custom-select-wrapper" id="actWrapper">
+            <input type="hidden" id="studentActivity" required>
+            <div class="custom-select-trigger" onclick="toggleDropdown('actWrapper')">
+              <span class="trigger-label" id="actLabel">-- Choose an Activity --</span>
+              <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="custom-select-options">
+              <div class="custom-option" onclick="selectActivity('Cricket')">
+                <span class="opt-badge b">Cricket</span> Cricket Match Derby (Boys) · 8 Overs (12 Morning vs. 12 Evening)
+              </div>
+              <div class="custom-option" onclick="selectActivity('Badminton')">
+                <span class="opt-badge c">Badminton</span> Girls Badminton Championship (8 Doubles Pairs Knockout)
+              </div>
+              <div class="custom-option" onclick="selectActivity('Stall')">
+                <span class="opt-badge d">Stall</span> Business &amp; Creative Stall (Food / Drinks / Art &amp; Crafts)
+              </div>
+              <div class="custom-option" onclick="selectActivity('Campaign Design')">
+                <span class="opt-badge f">Campaign</span> Campaign Design Contest (5th &amp; 7th Semesters)
+              </div>
+              <div class="custom-option" onclick="selectActivity('Jersey Design')">
+                <span class="opt-badge b">Apparel</span> Cricket Jersey Design Contest (2 per class / Interested)
+              </div>
+              <div class="custom-option" onclick="selectActivity('Media')">
+                <span class="opt-badge e">Media</span> Media Coverage Crew (Photography / Videography)
+              </div>
+              <div class="custom-option" onclick="selectActivity('Commentary')">
+                <span class="opt-badge d">Commentary</span> Match &amp; Event Commentary (Male / Female)
+              </div>
+              <div class="custom-option" onclick="selectActivity('Volunteer')">
+                <span class="opt-badge c">Volunteer</span> Organizing Volunteer / Discipline Squad
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Subform: Cricket -->
+        <div id="subCricket" class="subform-box" style="background:var(--b);">
+          <div class="subform-title">Cricket Playing Specialization</div>
+          <div class="subform-sub">Select your primary role for the 12-player squad selection (Morning vs. Evening derby):</div>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Playing Role *</label>
+              <div class="custom-select-wrapper" id="cricketRoleWrapper">
+                <input type="hidden" id="cricketRoleVal" value="Fast Bowler">
+                <div class="custom-select-trigger" onclick="toggleDropdown('cricketRoleWrapper')">
+                  <span class="trigger-label" id="cricketRoleLabel">Fast Bowler (Pace attack)</span>
+                  <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="custom-select-options">
+                  <div class="custom-option selected" onclick="selectOption('cricketRoleWrapper', 'Fast Bowler', 'Fast Bowler (Pace attack)')">Fast Bowler (Pace attack)</div>
+                  <div class="custom-option" onclick="selectOption('cricketRoleWrapper', 'Spinner', 'Spinner (Spin bowling)')">Spinner (Spin bowling)</div>
+                  <div class="custom-option" onclick="selectOption('cricketRoleWrapper', 'Batsman', 'Batsman (Top / Middle order)')">Batsman (Top / Middle order)</div>
+                  <div class="custom-option" onclick="selectOption('cricketRoleWrapper', 'All-Rounder', 'All-Rounder (Batting &amp; Bowling)')">All-Rounder (Batting &amp; Bowling)</div>
+                  <div class="custom-option" onclick="selectOption('cricketRoleWrapper', 'Wicket-Keeper Batsman', 'Wicket-Keeper Batsman')">Wicket-Keeper Batsman</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="cricketStyle">Playing Hand &amp; Style</label>
+              <input type="text" id="cricketStyle" class="form-input" placeholder="e.g. Right-Hand Bat / Right-Arm Fast">
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Subform: Stall -->
+        <div id="subStall" class="subform-box" style="background:var(--d);">
+          <div class="subform-title">Stall Category &amp; Setup Details</div>
+          <div class="subform-sub">Specify your product category and brand concept:</div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Stall Product Category *</label>
+              <div class="custom-select-wrapper" id="stallCatWrapper">
+                <input type="hidden" id="stallCatVal" value="Food Stall">
+                <div class="custom-select-trigger" onclick="toggleDropdown('stallCatWrapper')">
+                  <span class="trigger-label" id="stallCatLabel">Food (Baked goods, savory snacks, sandwiches)</span>
+                  <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="custom-select-options">
+                  <div class="custom-option selected" onclick="selectOption('stallCatWrapper', 'Food Stall', 'Food (Baked goods, savory snacks, sandwiches)')">Food (Baked goods, savory snacks, sandwiches)</div>
+                  <div class="custom-option" onclick="selectOption('stallCatWrapper', 'Drinks & Beverages', 'Drinks (Mocktails, iced teas, coffee, juices)')">Drinks (Mocktails, iced teas, coffee, juices)</div>
+                  <div class="custom-option" onclick="selectOption('stallCatWrapper', 'Art & Crafts', 'Art &amp; Crafts (Handmade Bouquet, Crochet Work)')">Art &amp; Crafts (Handmade Bouquet, Crochet Work)</div>
+                  <div class="custom-option" onclick="selectOption('stallCatWrapper', 'Handmade Products', 'Handmade Products (Totes, custom jewelry, crafts)')">Handmade Products (Totes, custom jewelry, crafts)</div>
+                  <div class="custom-option" onclick="selectOption('stallCatWrapper', 'Interactive Booth', 'Interactive Booth (Caricature sketch, face painting)')">Interactive Booth (Caricature sketch, face painting)</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="stallName">Stall / Venture Brand Name</label>
+              <input type="text" id="stallName" class="form-input" placeholder="e.g. Sips &amp; Sweets / Art Corner">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="stallPartner">Partner Name &amp; Semester (if Duo)</label>
+              <input type="text" id="stallPartner" class="form-input" placeholder="Leave empty if Solo">
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Subform: Media -->
+        <div id="subMedia" class="subform-box" style="background:var(--e);">
+          <div class="subform-title">Media Specialization</div>
+          <div class="subform-sub">2 Photographers from Morning + 2 Videographers from Evening:</div>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Media Preference *</label>
+              <div class="custom-select-wrapper" id="mediaRoleWrapper">
+                <input type="hidden" id="mediaRoleVal" value="Photography">
+                <div class="custom-select-trigger" onclick="toggleDropdown('mediaRoleWrapper')">
+                  <span class="trigger-label" id="mediaRoleLabel">Photography (Action stills &amp; portraits)</span>
+                  <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="custom-select-options">
+                  <div class="custom-option selected" onclick="selectOption('mediaRoleWrapper', 'Photography', 'Photography (Action stills &amp; portraits)')">Photography (Action stills &amp; portraits)</div>
+                  <div class="custom-option" onclick="selectOption('mediaRoleWrapper', 'Videography', 'Videography (Cinematic reels &amp; aftermovie)')">Videography (Cinematic reels &amp; aftermovie)</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="mediaGear">Camera Equipment Owned</label>
+              <input type="text" id="mediaGear" class="form-input" placeholder="e.g. Sony A7 IV / Canon EOS / iPhone 15 Pro">
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Subform: Design -->
+        <div id="subDesign" class="subform-box" style="background:var(--c);">
+          <div class="subform-title">Design Tools &amp; Experience</div>
+          <div class="subform-sub">For Campaign Teams (5th &amp; 7th Sem) or Jersey Design Contest:</div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="designTools">Primary Design Software</label>
+              <input type="text" id="designTools" class="form-input" placeholder="e.g. Adobe Illustrator, Photoshop, Figma">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="designPortfolio">Portfolio Link (Behance / Drive / IG)</label>
+              <input type="url" id="designPortfolio" class="form-input" placeholder="https://...">
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 24px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+          <button type="submit" class="btn-submit">
+            Submit Registration
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+          <button type="button" class="top-btn" onclick="resetForm()">Reset</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Callout Banner to see the Full Plan -->
+    <div class="plan-callout">
+      <div>
+        <h3>Want to review match rules, brackets &amp; duties?</h3>
+        <p>Explore the full departmental execution plan including the 8-over cricket rules, girls badminton knockout bracket, committee leads, and event day timeline.</p>
+      </div>
+      <a href="Design_Sports_Fest_2026_Google_Sans-1.html" class="btn-plan">
+        Click Here to See Full Plan →
+      </a>
+    </div>
+
+    <footer>
+      Design &amp; Sports Fest 2026 · Department of Graphic Design (BFA Morning &amp; Evening)
+    </footer>
+
+  </div>
+
+  <div id="toastMsg"></div>
+
+  <script>
+    const STORAGE_KEY = 'sports_fest_2026_registrations_v1';
+
+    // Dropdown Handling
+    function toggleDropdown(wrapperId) {
+      const wrapper = document.getElementById(wrapperId);
+      const isOpen = wrapper.classList.contains('open');
+      document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('open'));
+      if (!isOpen) {
+        wrapper.classList.add('open');
+      }
+    }
+
+    function selectOption(wrapperId, val, label) {
+      const wrapper = document.getElementById(wrapperId);
+      const input = wrapper.querySelector('input[type="hidden"]');
+      const labelSpan = wrapper.querySelector('.trigger-label');
+      
+      input.value = val;
+      labelSpan.textContent = label;
+
+      wrapper.querySelectorAll('.custom-option').forEach(opt => {
+        opt.classList.toggle('selected', opt.textContent.includes(label));
+      });
+
+      wrapper.classList.remove('open');
+    }
+
+    function selectActivity(act) {
+      selectOption('actWrapper', act, act);
+      
+      document.getElementById('subCricket').classList.toggle('active', act === 'Cricket');
+      document.getElementById('subStall').classList.toggle('active', act === 'Stall');
+      document.getElementById('subMedia').classList.toggle('active', act === 'Media');
+      document.getElementById('subDesign').classList.toggle('active', act === 'Campaign Design' || act === 'Jersey Design');
+    }
+
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.custom-select-wrapper')) {
+        document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('open'));
+      }
+    });
+
+    function showToast(msg) {
+      const t = document.getElementById('toastMsg');
+      t.textContent = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 3500);
+    }
+
+    function resetForm() {
+      document.getElementById('regForm').reset();
+      document.getElementById('studentSemester').value = '';
+      document.getElementById('semLabel').textContent = '-- Choose Semester & Shift --';
+      document.getElementById('studentActivity').value = '';
+      document.getElementById('actLabel').textContent = '-- Choose an Activity --';
+      document.querySelectorAll('.subform-box').forEach(s => s.classList.remove('active'));
+    }
+
+    function submitForm(e) {
+      e.preventDefault();
+      const name = document.getElementById('studentName').value.trim();
+      const roll = document.getElementById('studentRoll').value.trim();
+      const semester = document.getElementById('studentSemester').value;
+      const phone = document.getElementById('studentPhone').value.trim();
+      const activity = document.getElementById('studentActivity').value;
+
+      if (!name || !roll || !semester || !activity) {
+        alert('Please select both Semester and Activity from the custom dropdowns.');
+        return;
+      }
+
+      let details = '';
+      if (activity === 'Cricket') {
+        const role = document.getElementById('cricketRoleVal').value;
+        const style = document.getElementById('cricketStyle').value.trim() || 'Standard';
+        details = `${role} (${style})`;
+      } else if (activity === 'Stall') {
+        const cat = document.getElementById('stallCatVal').value;
+        const brand = document.getElementById('stallName').value.trim() || 'Custom Stall';
+        const partner = document.getElementById('stallPartner').value.trim();
+        details = `${cat} · "${brand}"${partner ? ' [Duo Partner: ' + partner + ']' : ' (Solo)'}`;
+      } else if (activity === 'Media') {
+        const mRole = document.getElementById('mediaRoleVal').value;
+        const gear = document.getElementById('mediaGear').value.trim();
+        details = `${mRole}${gear ? ' (Gear: ' + gear + ')' : ''}`;
+      } else if (activity === 'Campaign Design' || activity === 'Jersey Design') {
+        const tools = document.getElementById('designTools').value.trim() || 'Vector / Mockups';
+        details = `Software: ${tools}`;
+      } else if (activity === 'Badminton') {
+        details = `Doubles Player Nomination`;
+      } else if (activity === 'Commentary') {
+        details = `Live Commentator / Host`;
+      } else {
+        details = `General Event Volunteer`;
+      }
+
+      const shift = semester.includes('Morning') ? 'Morning' : 'Evening';
+      const now = new Date();
+      const record = {
+        id: 'REG-' + Date.now().toString().slice(-6),
+        name,
+        roll,
+        semester,
+        shift,
+        phone,
+        activity,
+        details,
+        date: now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        time: now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+      };
+
+      try {
+        const list = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        list.unshift(record);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+      } catch(err) {
+        console.error(err);
+      }
+
+      showToast(`Registration for ${name} submitted successfully!`);
+      resetForm();
+    }
+  </script>
+</body>
+</html>
