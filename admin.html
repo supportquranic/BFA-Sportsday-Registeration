@@ -369,6 +369,122 @@
       box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
     }
 
+    /* Grouped Rosters Section */
+    .group-section {
+      margin-top: 28px;
+    }
+    .group-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .group-header h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -.02em;
+    }
+    .group-header p {
+      margin: 2px 0 0;
+      font-size: 13px;
+      color: var(--m);
+    }
+    .group-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .group-tab {
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--l);
+      background: #fff;
+      color: var(--ink);
+      font: 600 13px inherit;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .group-tab:hover {
+      background: var(--a);
+    }
+    .group-tab.active {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+    }
+    .group-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 14px;
+    }
+    .group-card {
+      background: #fff;
+      border: 1px solid var(--l);
+      border-radius: 20px;
+      padding: 16px 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .group-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--l);
+      margin-bottom: 10px;
+    }
+    .group-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .group-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .group-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: #fafafa;
+      border: 1px solid rgba(0,0,0,0.04);
+      font-size: 13px;
+    }
+    .group-item-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .group-item-sub {
+      font-size: 11.5px;
+      color: var(--m);
+    }
+    .btn-copy-group {
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--l);
+      background: #fff;
+      color: var(--ink);
+      font: 600 11px inherit;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-copy-group:hover {
+      background: var(--a);
+    }
+
     /* Mobile Screen Optimization */
     @media (max-width: 680px) {
       body {
@@ -557,6 +673,37 @@
         font-size: 11.5px;
         margin-top: 24px;
       }
+      .group-section {
+        margin-top: 20px;
+      }
+      .group-header h2 {
+        font-size: 17px;
+      }
+      .group-header p {
+        font-size: 11.5px;
+      }
+      .group-tab {
+        padding: 5px 12px;
+        font-size: 11.5px;
+      }
+      .group-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .group-card {
+        padding: 12px 14px;
+        border-radius: 14px;
+      }
+      .group-card-title {
+        font-size: 13.5px;
+      }
+      .group-item {
+        padding: 7px 9px;
+        font-size: 12px;
+      }
+      .group-item-sub {
+        font-size: 10.5px;
+      }
     }
   </style>
 </head>
@@ -722,6 +869,23 @@
           <!-- Populated by JavaScript -->
         </tbody>
       </table>
+    </div>
+
+    <!-- Grouped Rosters Section (Same Class & Same Activity) -->
+    <div class="group-section" id="groupedRostersSection">
+      <div class="group-header">
+        <div>
+          <h2>Grouped Rosters (Easy Team &amp; Class Grouping)</h2>
+          <p>View students grouped automatically by same class or same activity.</p>
+        </div>
+        <div class="group-tabs">
+          <button type="button" class="group-tab active" id="tabGroupClass" onclick="setGroupMode('class')">👥 Same Class Players</button>
+          <button type="button" class="group-tab" id="tabGroupActivity" onclick="setGroupMode('activity')">🎯 Same Activity</button>
+        </div>
+      </div>
+      <div class="group-grid" id="groupedRostersGrid">
+        <!-- Populated by JavaScript -->
+      </div>
     </div>
 
     <!-- Callout Banner to see the Full Plan -->
@@ -1004,6 +1168,8 @@
       document.getElementById('cntHand').textContent = sHand;
 
       const tbody = document.getElementById('adminTableBody');
+      renderGroupedRosters(filtered);
+
       if (filtered.length === 0) {
         tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 36px 20px; color: var(--m); font-size: 14.5px;">No student registrations submitted yet.<br><span style="font-size:12.5px; color:#888;">Live entries from the registration form will appear here.</span></td></tr>`;
         return;
@@ -1031,6 +1197,148 @@
           </tr>
         `;
       }).join('');
+    }
+
+    let currentGroupMode = 'class';
+    let lastRenderedGroups = {};
+
+    function setGroupMode(mode) {
+      currentGroupMode = mode;
+      const tabClass = document.getElementById('tabGroupClass');
+      const tabAct = document.getElementById('tabGroupActivity');
+      if (tabClass) tabClass.classList.toggle('active', mode === 'class');
+      if (tabAct) tabAct.classList.toggle('active', mode === 'activity');
+      renderTable();
+    }
+
+    function getActivityBadgeClass(act) {
+      if (act === 'Cricket') return 'b';
+      if (act === 'Badminton') return 'c';
+      if (act === 'Stall' || act === 'Food Cart') return 'd';
+      if (act && act.includes('Design')) return 'f';
+      return 'dark';
+    }
+
+    function renderGroupedRosters(filtered) {
+      const grid = document.getElementById('groupedRostersGrid');
+      if (!grid) return;
+
+      if (!filtered || filtered.length === 0) {
+        lastRenderedGroups = {};
+        grid.innerHTML = `<div class="group-card" style="grid-column: 1 / -1; text-align:center; color:var(--m); padding: 28px 16px;">No matching registrations to group.</div>`;
+        return;
+      }
+
+      const groups = {};
+      filtered.forEach(item => {
+        let key;
+        if (currentGroupMode === 'class') {
+          key = item.semester || 'Other Class';
+        } else {
+          key = (item.activity === 'Stall') ? 'Food Cart' : (item.activity || 'Other Activity');
+        }
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(item);
+      });
+
+      const classOrder = [
+        '1st Semester Morning', '3rd Semester Morning', '5th Semester Morning', '7th Semester Morning',
+        '1st Semester Evening', '3rd Semester Evening', '5th Semester Evening', '7th Semester Evening'
+      ];
+      const actOrder = [
+        'Cricket', 'Badminton', 'Food Cart', 'Campaign Design', 'Jersey Design', 'Media', 'Commentary', 'Volunteer'
+      ];
+
+      const orderRef = currentGroupMode === 'class' ? classOrder : actOrder;
+      const keys = Object.keys(groups).sort((a, b) => {
+        const ia = orderRef.indexOf(a);
+        const ib = orderRef.indexOf(b);
+        if (ia !== -1 && ib !== -1) return ia - ib;
+        if (ia !== -1) return -1;
+        if (ib !== -1) return 1;
+        return a.localeCompare(b);
+      });
+
+      lastRenderedGroups = groups;
+
+      grid.innerHTML = keys.map(key => {
+        const items = groups[key].slice().sort((a, b) => {
+          if (currentGroupMode === 'class') {
+            return (a.activity || '').localeCompare(b.activity || '') || (a.name || '').localeCompare(b.name || '');
+          }
+          return (a.semester || '').localeCompare(b.semester || '') || (a.name || '').localeCompare(b.name || '');
+        });
+
+        let badgeHtml = '';
+        if (currentGroupMode === 'class') {
+          const isMorning = key.includes('Morning');
+          badgeHtml = `<span class="pill ${isMorning ? 'f' : 'e'}">${items.length} ${items.length === 1 ? 'Student' : 'Students'}</span>`;
+        } else {
+          const mCnt = items.filter(x => x.shift === 'Morning').length;
+          const eCnt = items.length - mCnt;
+          badgeHtml = `<span class="pill ${getActivityBadgeClass(key)}">${items.length} total (${mCnt}M · ${eCnt}E)</span>`;
+        }
+
+        const safeKey = key.replace(/'/g, "\\'");
+        const rowsHtml = items.map((item, idx) => {
+          const tag = currentGroupMode === 'class'
+            ? `<span class="pill ${getActivityBadgeClass(item.activity)}">${escapeHtml(item.activity)}</span>`
+            : `<span class="pill ${item.shift === 'Morning' ? 'f' : 'e'}">${escapeHtml(item.semester)}</span>`;
+
+          return `
+            <li class="group-item">
+              <div class="group-item-main">
+                <div><b>${idx + 1}. ${escapeHtml(item.name)}</b> <code style="font-size:11px; color:var(--m);">${escapeHtml(item.roll)}</code></div>
+                <div class="group-item-sub">${escapeHtml(item.details || '')}${item.phone ? ' · <a href="tel:' + escapeHtml(item.phone) + '" style="color:var(--m); text-decoration:none;">' + escapeHtml(item.phone) + '</a>' : ''}</div>
+              </div>
+              <div>${tag}</div>
+            </li>
+          `;
+        }).join('');
+
+        return `
+          <div class="group-card">
+            <div class="group-card-head">
+              <div class="group-card-title">
+                <span>${escapeHtml(key)}</span>
+                ${badgeHtml}
+              </div>
+              <button type="button" class="btn-copy-group" onclick="copyGroupRoster('${safeKey}')">📋 Copy</button>
+            </div>
+            <ul class="group-list">
+              ${rowsHtml}
+            </ul>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function copyGroupRoster(key) {
+      const items = lastRenderedGroups[key];
+      if (!items || items.length === 0) return;
+
+      const sorted = items.slice().sort((a, b) => {
+        if (currentGroupMode === 'class') {
+          return (a.activity || '').localeCompare(b.activity || '') || (a.name || '').localeCompare(b.name || '');
+        }
+        return (a.semester || '').localeCompare(b.semester || '') || (a.name || '').localeCompare(b.name || '');
+      });
+
+      const lines = sorted.map((item, idx) => {
+        const meta = currentGroupMode === 'class' ? `${item.activity} (${item.details})` : `${item.semester} · ${item.details}`;
+        return `${idx + 1}. ${item.name} [${item.roll}] - ${meta} (${item.phone || 'N/A'})`;
+      });
+
+      const text = `*${key} (${sorted.length})*\n` + lines.join('\n');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(`Copied ${key} roster (${sorted.length} students)!`);
+        }).catch(() => {
+          showToast('Copy failed — please copy manually.');
+        });
+      } else {
+        showToast('Clipboard unavailable in this browser.');
+      }
     }
 
     async function deleteRecord(id) {
