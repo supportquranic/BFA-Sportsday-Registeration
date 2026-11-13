@@ -871,19 +871,28 @@
       </table>
     </div>
 
-    <!-- Grouped Rosters Section (Same Class & Same Activity) -->
-    <div class="group-section" id="groupedRostersSection">
+    <!-- Grouped Rosters: Class-Wise (Same Class Players) -->
+    <div class="group-section" id="groupedClassSection">
       <div class="group-header">
         <div>
-          <h2>Grouped Rosters (Easy Team &amp; Class Grouping)</h2>
-          <p>View students grouped automatically by same class or same activity.</p>
-        </div>
-        <div class="group-tabs">
-          <button type="button" class="group-tab active" id="tabGroupClass" onclick="setGroupMode('class')">👥 Same Class Players</button>
-          <button type="button" class="group-tab" id="tabGroupActivity" onclick="setGroupMode('activity')">🎯 Same Activity</button>
+          <h2>👥 Class-Wise List (Same Class Players)</h2>
+          <p>Students grouped by their exact semester &amp; shift for easy class-level coordination.</p>
         </div>
       </div>
-      <div class="group-grid" id="groupedRostersGrid">
+      <div class="group-grid" id="groupedClassGrid">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Grouped Rosters: Activity-Wise (Same Activity Participation) -->
+    <div class="group-section" id="groupedActivitySection">
+      <div class="group-header">
+        <div>
+          <h2>🎯 Activity-Wise List (Same Activity Participation)</h2>
+          <p>Students grouped by activity (Morning &amp; Evening combined) for easy team &amp; squad grouping.</p>
+        </div>
+      </div>
+      <div class="group-grid" id="groupedActivityGrid">
         <!-- Populated by JavaScript -->
       </div>
     </div>
@@ -1199,17 +1208,7 @@
       }).join('');
     }
 
-    let currentGroupMode = 'class';
-    let lastRenderedGroups = {};
-
-    function setGroupMode(mode) {
-      currentGroupMode = mode;
-      const tabClass = document.getElementById('tabGroupClass');
-      const tabAct = document.getElementById('tabGroupActivity');
-      if (tabClass) tabClass.classList.toggle('active', mode === 'class');
-      if (tabAct) tabAct.classList.toggle('active', mode === 'activity');
-      renderTable();
-    }
+    let lastRenderedGroups = { class: {}, activity: {} };
 
     function getActivityBadgeClass(act) {
       if (act === 'Cricket') return 'b';
@@ -1220,23 +1219,25 @@
     }
 
     function renderGroupedRosters(filtered) {
-      const grid = document.getElementById('groupedRostersGrid');
+      renderGroupGrid('groupedClassGrid', filtered, 'class');
+      renderGroupGrid('groupedActivityGrid', filtered, 'activity');
+    }
+
+    function renderGroupGrid(gridId, filtered, mode) {
+      const grid = document.getElementById(gridId);
       if (!grid) return;
 
       if (!filtered || filtered.length === 0) {
-        lastRenderedGroups = {};
-        grid.innerHTML = `<div class="group-card" style="grid-column: 1 / -1; text-align:center; color:var(--m); padding: 28px 16px;">No matching registrations to group.</div>`;
+        lastRenderedGroups[mode] = {};
+        grid.innerHTML = `<div class="group-card" style="grid-column: 1 / -1; text-align:center; color:var(--m); padding: 24px 16px;">No matching registrations to group.</div>`;
         return;
       }
 
       const groups = {};
       filtered.forEach(item => {
-        let key;
-        if (currentGroupMode === 'class') {
-          key = item.semester || 'Other Class';
-        } else {
-          key = (item.activity === 'Stall') ? 'Food Cart' : (item.activity || 'Other Activity');
-        }
+        const key = (mode === 'class')
+          ? (item.semester || 'Other Class')
+          : ((item.activity === 'Stall') ? 'Food Cart' : (item.activity || 'Other Activity'));
         if (!groups[key]) groups[key] = [];
         groups[key].push(item);
       });
@@ -1249,7 +1250,7 @@
         'Cricket', 'Badminton', 'Food Cart', 'Campaign Design', 'Jersey Design', 'Media', 'Commentary', 'Volunteer'
       ];
 
-      const orderRef = currentGroupMode === 'class' ? classOrder : actOrder;
+      const orderRef = mode === 'class' ? classOrder : actOrder;
       const keys = Object.keys(groups).sort((a, b) => {
         const ia = orderRef.indexOf(a);
         const ib = orderRef.indexOf(b);
@@ -1259,18 +1260,18 @@
         return a.localeCompare(b);
       });
 
-      lastRenderedGroups = groups;
+      lastRenderedGroups[mode] = groups;
 
       grid.innerHTML = keys.map(key => {
         const items = groups[key].slice().sort((a, b) => {
-          if (currentGroupMode === 'class') {
+          if (mode === 'class') {
             return (a.activity || '').localeCompare(b.activity || '') || (a.name || '').localeCompare(b.name || '');
           }
           return (a.semester || '').localeCompare(b.semester || '') || (a.name || '').localeCompare(b.name || '');
         });
 
         let badgeHtml = '';
-        if (currentGroupMode === 'class') {
+        if (mode === 'class') {
           const isMorning = key.includes('Morning');
           badgeHtml = `<span class="pill ${isMorning ? 'f' : 'e'}">${items.length} ${items.length === 1 ? 'Student' : 'Students'}</span>`;
         } else {
@@ -1281,7 +1282,7 @@
 
         const safeKey = key.replace(/'/g, "\\'");
         const rowsHtml = items.map((item, idx) => {
-          const tag = currentGroupMode === 'class'
+          const tag = mode === 'class'
             ? `<span class="pill ${getActivityBadgeClass(item.activity)}">${escapeHtml(item.activity)}</span>`
             : `<span class="pill ${item.shift === 'Morning' ? 'f' : 'e'}">${escapeHtml(item.semester)}</span>`;
 
@@ -1303,7 +1304,7 @@
                 <span>${escapeHtml(key)}</span>
                 ${badgeHtml}
               </div>
-              <button type="button" class="btn-copy-group" onclick="copyGroupRoster('${safeKey}')">📋 Copy</button>
+              <button type="button" class="btn-copy-group" onclick="copyGroupRoster('${mode}', '${safeKey}')">📋 Copy</button>
             </div>
             <ul class="group-list">
               ${rowsHtml}
@@ -1313,19 +1314,19 @@
       }).join('');
     }
 
-    function copyGroupRoster(key) {
-      const items = lastRenderedGroups[key];
+    function copyGroupRoster(mode, key) {
+      const items = (lastRenderedGroups[mode] || {})[key];
       if (!items || items.length === 0) return;
 
       const sorted = items.slice().sort((a, b) => {
-        if (currentGroupMode === 'class') {
+        if (mode === 'class') {
           return (a.activity || '').localeCompare(b.activity || '') || (a.name || '').localeCompare(b.name || '');
         }
         return (a.semester || '').localeCompare(b.semester || '') || (a.name || '').localeCompare(b.name || '');
       });
 
       const lines = sorted.map((item, idx) => {
-        const meta = currentGroupMode === 'class' ? `${item.activity} (${item.details})` : `${item.semester} · ${item.details}`;
+        const meta = mode === 'class' ? `${item.activity} (${item.details})` : `${item.semester} · ${item.details}`;
         return `${idx + 1}. ${item.name} [${item.roll}] - ${meta} (${item.phone || 'N/A'})`;
       });
 
